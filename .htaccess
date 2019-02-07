@@ -13,14 +13,7 @@ RewriteRule (.*) http://morozov-online.com/$1 [R=301,L]
 RewriteCond %{HTTP_HOST} ^www.morozov-online\.com$ [NC]
 RewriteRule ^(.*)$ https://morozov-online.com/$1 [R=301,L]
 
-RewriteCond %{HTTP_HOST} ^xn--bersetzer-deutsch-russisch-xzc.com$
-RewriteRule ^(.*)$ https://morozov-online.com/$1 [NC,R=301,L]
-
-RewriteCond %{HTTP_HOST} ^www.xn--bersetzer-deutsch-russisch-xzc.com$
-RewriteRule ^(.*)$ https://morozov-online.com/$1 [NC,R=301,L]
-
 RewriteCond %{SERVER_PORT} !^443$
 RewriteRule .* https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
-
 
 ErrorDocument 404 /404.html
