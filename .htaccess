@@ -1,5 +1,5 @@
 RewriteCond %{HTTP_USER_AGENT} (.*)Mobile
-RewriteCond %{HTTP_REFERER} !^https:\/\/m\.?morozov-online\.com\/index.html?$
+RewriteCond %{HTTP_REFERER} !^http:\/\/m\.?morozov-online\.com\/index.html?$
 RewriteRule ^(/)?$ http://m.morozov-online.com/index.html [R]
 
 RewriteEngine on RewriteBase /
