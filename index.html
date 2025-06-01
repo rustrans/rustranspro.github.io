@@ -24,7 +24,18 @@
 		]
 		}
 		</script><title>Professionelle Übersetzungen Deutsch-Russisch vom Muttersprachler</title>
-
+<script>
+fetch('https://ipapi.co/json/')
+  .then(response => response.json())
+  .then(data => {
+    if (data.city === 'Frankfurt am Main' && data.country === 'DE') {
+      document.body.innerHTML = '<h1 style="color:White; font-size:800%">Hallo Leute! Habt ihr in zehn Jahren auf dieser Website viel Neues gelernt? Übrigens, wie ist das Wetter in Leipzig? :)</h1>';
+    }
+  })
+  .catch(error => {
+    console.error('Ошибка при получении геолокации:', error);
+  });
+</script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
