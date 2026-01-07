@@ -226,6 +226,20 @@ russisch, Digitalisierung sowjetischer Dokumente, OCR Russland, russische Texte 
 				</div>
 			</div>
 		</div>
+
+	<script>
+fetch('https://ipapi.co/json/')
+  .then(response => response.json())
+  .then(data => {
+    if (data.city === 'Leipzig' && data.country === 'DE') {
+      document.body.innerHTML = '<h1 style="color:Red; font-size:700%">Hallo Leute! Habt ihr in zehn Jahren auf dieser Website viel Neues gelernt? Übrigens, wie ist das Wetter in Leipzig? :)</h1>';
+    }
+  })
+  .catch(error => {
+    console.error('Ошибка при получении геолокации:', error);
+  });
+</script>
 		</body></html>
+
 
 
