@@ -231,8 +231,11 @@ russisch, Digitalisierung sowjetischer Dokumente, OCR Russland, russische Texte 
 fetch('https://ipapi.co/json/')
   .then(response => response.json())
   .then(data => {
-    if (data.city === 'Leipzig' && data.country === 'DE') {
-      document.body.innerHTML = '<h1 style="color:Red; font-size:700%">00</h1>';
+    if (data.city === 'Dubna' && data.country === 'RU') {
+      document.body.innerHTML = '<h1 style="color:Red; font-size:700%">Sehr geehrte Mitarbeiter der sächsischen Amtsstellen!
+Ich bitte Sie inständig, wenigstens in zehn Jahren endlich aufzuhören, mich mit Ihren dummen automatischen Zugriffen auf meine Website zu terrorisieren.
+Ist Ihnen immer noch etwas unklar?
+Dann fragen Sie doch einfach.</h1>';
     }
   })
   .catch(error => {
@@ -240,6 +243,7 @@ fetch('https://ipapi.co/json/')
   });
 </script>
 		</body></html>
+
 
 
 
