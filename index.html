@@ -192,19 +192,19 @@ function updateStatus() {
 
             if (data.status === 'online') {
                 dot.style.background = '#4ade80';   // зелёный
-                text.textContent = 'Пользователь онлайн';
+                text.textContent = 'Online';
             } else if (data.status === 'away') {
                 dot.style.background = '#fbbf24';   // жёлтый
-                text.textContent = 'Пользователь отошёл';
+                text.textContent = 'Kurz abwesend';
             } else {
                 dot.style.background = '#6b7280';   // серый
-                text.textContent = 'Пользователь оффлайн';
+                text.textContent = 'Offline';
             }
         })
         .catch(() => {
             // если сервер недоступен — оффлайн
             document.getElementById('status-dot').style.background = '#6b7280';
-            document.getElementById('status-text').textContent = 'Пользователь оффлайн';
+            document.getElementById('status-text').textContent = 'Offline';
         });
 }
 
