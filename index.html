@@ -180,7 +180,40 @@
 				</div>
 			</div>
 		</div>
-		</body></html>
+<script>
+const STATUS_URL = 'https://morozov-online.com/status.php'; // ваш адрес
+
+function updateStatus() {
+    fetch(STATUS_URL)
+        .then(r => r.json())
+        .then(data => {
+            const dot = document.getElementById('status-dot');
+            const text = document.getElementById('status-text');
+
+            if (data.status === 'online') {
+                dot.style.background = '#4ade80';   // зелёный
+                text.textContent = 'Пользователь онлайн';
+            } else if (data.status === 'away') {
+                dot.style.background = '#fbbf24';   // жёлтый
+                text.textContent = 'Пользователь отошёл';
+            } else {
+                dot.style.background = '#6b7280';   // серый
+                text.textContent = 'Пользователь оффлайн';
+            }
+        })
+        .catch(() => {
+            // если сервер недоступен — оффлайн
+            document.getElementById('status-dot').style.background = '#6b7280';
+            document.getElementById('status-text').textContent = 'Пользователь оффлайн';
+        });
+}
+
+// Обновляем каждые 30 секунд
+setInterval(updateStatus, 30000);
+updateStatus(); // сразу при загрузке
+</script>
+		</body>
+</html>
 
 
 
