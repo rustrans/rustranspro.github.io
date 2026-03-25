@@ -198,51 +198,7 @@
         <span id="status-text" style="color: #1e2937;">Offline</span>
     </div>
 </div>
-
-<script>
-// ==================== НАСТРОЙКИ ====================
-const STATUS_URL = "https://gist.githubusercontent.com/rustrans/4af605b1632b4aa98ecfdefc8268a981/raw/df3d4985fb120ba4337ea75994ec1fbc605507c9/status.json";
-// =================================================
-
-function updateStatus() {
-    fetch(STATUS_URL, { cache: "no-cache" })
-        .then(response => {
-            if (!response.ok) throw new Error("Status not available");
-            return response.json();
-        })
-        .then(data => {
-            const dot = document.getElementById('status-dot');
-            const text = document.getElementById('status-text');
-            const status = (data.status || 'offline').toLowerCase();
-
-            if (status === 'online') {
-                dot.style.background = '#22c55e';
-                text.textContent = 'Online';
-                text.style.color = '#166534';
-            } 
-            else if (status === 'away') {
-                dot.style.background = '#eab308';
-                text.textContent = 'Kurz abwesend';
-                text.style.color = '#854d0e';
-            } 
-            else {
-                dot.style.background = '#6b7280';
-                text.textContent = 'Offline';
-                text.style.color = '#1e2937';
-            }
-        })
-        .catch(() => {
-            // Если Gist недоступен — показываем Offline
-            document.getElementById('status-dot').style.background = '#6b7280';
-            document.getElementById('status-text').textContent = 'Offline';
-        });
-}
-
-// Обновляем статус каждые 20 секунд
-setInterval(updateStatus, 20000);
-updateStatus(); // первый запуск сразу
-</script>
-		</body>
+</body>
 </html>
 
 
