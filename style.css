@@ -126,21 +126,20 @@ color: #000000;
 }
 /* === Упрощённое переключение статуса === */
 .status {
-    --dot-color: #22c55e;     /* цвет по умолчанию */
+    --dot-color: #22c55e;
     --pulse-speed: 2.2s;
 }
-
-.status.online  { 
-    --dot-color: #22c55e; 
-    --pulse-speed: 2.2s; 
+.status.online {
+    --dot-color: #22c55e;
+    --pulse-speed: 2.2s;
 }
-.status.away    { 
-    --dot-color: #eab308; 
-    --pulse-speed: 2.6s; 
+.status.away {
+    --dot-color: #eab308;
+    --pulse-speed: 2.6s;
 }
-.status.offline { 
-    --dot-color: #ef4444; 
-    --pulse-speed: 0s; 
+.status.offline {
+    --dot-color: #ef4444;
+    --pulse-speed: 0s;
 }
 /* === Кружочек статуса === */
 .dot {
@@ -148,29 +147,29 @@ color: #000000;
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    margin-left: 6px;     /* отступ от двоеточия */
-    margin-right: 1px;
+    margin-left: 10px;        /* отступ от двоеточия */
+    margin-right: 8px;
     vertical-align: middle;
     background-color: var(--dot-color);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
     position: relative;
-    top: -3px;
-}
-/* Пульсация */
+    top: -2px;
+    
+    /* Пульсация */
     animation: pulse var(--pulse-speed) infinite ease-in-out;
 }
 /* Анимация пульсации */
 @keyframes pulse {
-    0%, 100% { 
-        box-shadow: 0 0 0 0 rgba(255,255,255,0); 
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255,255,255,0);
         transform: scale(1);
     }
-    50% { 
-        box-shadow: 0 0 0 10px var(--dot-color); 
+    50% {
+        box-shadow: 0 0 0 10px var(--dot-color);
         transform: scale(1.08);
     }
 }
-/* Для Offline анимацию отключаем */
+/* Отключаем анимацию для Offline */
 .status.offline .dot {
     animation: none;
 }
