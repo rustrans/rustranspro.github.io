@@ -91,12 +91,14 @@ border-top: 2px solid grey;
 border-bottom: 5px solid grey;
 }
 #header-right {
-width: 255px;
-height: 69px;
-background-color: #363636;
-float: left;
-border-left: 5px solid grey;
-border-bottom: 4px solid grey;
+display: flex;
+flex-direction: column;     /* если хочешь выравнивать по вертикали */
+justify-content: center;    /* центрирует по вертикали */
+align-items: center;        /* центрирует по горизонтали */
+height: 100%;
+}
+#header-right h4 {
+    margin: 0;
 }
 #sidebar {
 width: 190px;
