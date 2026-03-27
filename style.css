@@ -26,13 +26,6 @@ background-color: white;
 font-family: Arial, Verdana, Helvetica, sans-serif;
 padding-top: 5px;
 } 
-#container { 
-width: 760px;
-border: 3px solid #363636;
-height: 610px;
-margin: 0 auto;
-color: white;
-}
 h1 {
 color: #e4e0e0;
 font-size:22px;
@@ -77,18 +70,6 @@ width: 500px;
 height: 70px;
 background-color: #363636;
 float: left;
-}
-#header1 {
-height: 40px;
-display: table-cell;
-vertical-align: middle;
-padding-left: 10px;
-}
-#header2 {
-height: 27px;
-padding-left: 10px;
-border-top: 2px solid grey;
-border-bottom: 5px solid grey;
 }
 #header-right {
 width: 255px;
