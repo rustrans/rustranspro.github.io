@@ -174,8 +174,3 @@ color: #000000;
 .status.offline .dot {
     animation: none;
 }
-/* Hover эффект */
-.dot:hover {
-    transform: scale(1.15);
-    transition: transform 0.2s ease;
-}
