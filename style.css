@@ -169,7 +169,3 @@ color: #000000;
         transform: scale(1.08);
     }
 }
-/* Отключаем анимацию для Offline */
-.status.offline .dot {
-    animation: none;
-}
