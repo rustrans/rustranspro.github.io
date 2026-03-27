@@ -91,11 +91,16 @@ border-top: 2px solid grey;
 border-bottom: 5px solid grey;
 }
 #header-right {
-    display: flex;
-    flex-direction: column;     /* если хочешь выравнивать по вертикали */
-    justify-content: center;    /* центрирует по вертикали */
-    align-items: center;        /* центрирует по горизонтали */
-    height: 100%;
+width: 255px;
+height: 69px;
+background-color: #363636;
+float: left;
+border-left: 5px solid grey;
+border-bottom: 4px solid grey;
+flex-direction: column;     /* если хочешь выравнивать по вертикали */
+justify-content: center;    /* центрирует по вертикали */
+align-items: center;        /* центрирует по горизонтали */
+height: 100%;
 }
 
 #header-right h4 {
