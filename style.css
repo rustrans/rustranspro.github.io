@@ -124,6 +124,24 @@ overflow: auto;
 p.qr-style {
 color: #000000;
 }
+/* === Упрощённое переключение статуса === */
+.status {
+    --dot-color: #22c55e;     /* цвет по умолчанию */
+    --pulse-speed: 2.2s;
+}
+
+.status.online  { 
+    --dot-color: #22c55e; 
+    --pulse-speed: 2.2s; 
+}
+.status.away    { 
+    --dot-color: #eab308; 
+    --pulse-speed: 2.6s; 
+}
+.status.offline { 
+    --dot-color: #ef4444; 
+    --pulse-speed: 0s; 
+}
 /* === Кружочек статуса === */
 .dot {
     display: inline-block;
@@ -133,51 +151,29 @@ color: #000000;
     margin-left: 6px;     /* отступ от двоеточия */
     margin-right: 1px;
     vertical-align: middle;
+    background-color: var(--dot-color);
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85);
     position: relative;
     top: -3px;
 }
-
-/* Цвета и анимации */
-.dot.green  { 
-    background-color: #22c55e; 
-    animation: pulse-green 2.2s infinite ease-in-out;
+/* Пульсация */
+    animation: pulse var(--pulse-speed) infinite ease-in-out;
 }
-
-.dot.yellow { 
-    background-color: #eab308; 
-    animation: pulse-yellow 2.6s infinite ease-in-out;
-}
-
-.dot.red    { 
-    background-color: #ef4444; 
-    animation: none;
-}
-
-/* Плавная пульсация зелёного */
-@keyframes pulse-green {
+/* Анимация пульсации */
+@keyframes pulse {
     0%, 100% { 
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+        box-shadow: 0 0 0 0 rgba(255,255,255,0); 
         transform: scale(1);
     }
     50% { 
-        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+        box-shadow: 0 0 0 10px var(--dot-color); 
         transform: scale(1.08);
     }
 }
-
-/* Плавная пульсация жёлтого */
-@keyframes pulse-yellow {
-    0%, 100% { 
-        box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.6);
-        transform: scale(1);
-    }
-    50% { 
-        box-shadow: 0 0 0 8px rgba(234, 179, 8, 0);
-        transform: scale(1.06);
-    }
+/* Для Offline анимацию отключаем */
+.status.offline .dot {
+    animation: none;
 }
-
 /* Hover эффект */
 .dot:hover {
     transform: scale(1.15);
