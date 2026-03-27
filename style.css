@@ -148,7 +148,7 @@ color: #000000;
     height: 16px;
     border-radius: 50%;
     margin-left: 6px;        /* отступ от двоеточия */
-    margin-right: 3px;
+    margin-right: 6px;
     vertical-align: middle;
     background-color: var(--dot-color);
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
