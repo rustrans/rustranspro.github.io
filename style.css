@@ -153,7 +153,7 @@ color: #000000;
     background-color: var(--dot-color);
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
     position: relative;
-    top: -2px;
+    top: -3px;
     
     /* Пульсация */
     animation: pulse var(--pulse-speed) infinite ease-in-out;
