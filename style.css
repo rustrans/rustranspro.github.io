@@ -106,6 +106,14 @@ padding-bottom: 20px;
 padding-top: 20px;
 height: 496px;
 }
+#sidebar-chat {
+width: 190px;
+border-right: 2px solid grey;
+float: left;
+padding-bottom: 20px;
+padding-left: 20px;
+height: 496px;
+}
 #main {
 padding-left: 30px;
 }
