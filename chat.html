@@ -7,31 +7,42 @@
         body { 
             font-family: Arial, sans-serif; 
             margin: 20px; 
+            line-height: 1.5;
         }
-        h1, h2, h3 { 
+        h1, h2, h3, h4 { 
             color: #333; 
         }
         ul { 
             list-style-type: disc; 
-            margin-left: 20px; 
+            margin-left: 25px; 
         }
         .section { 
-            margin-bottom: 20px; 
+            margin-bottom: 30px; 
         }
 
-        /* Добавлено для корректного отображения чата */
+        /* === Стили только для корректного отображения чата === */
         main {
-            min-height: 650px;           /* минимальная высота под чат */
             width: 100%;
-            padding: 15px 0;
+            min-height: 700px;           /* достаточно места для чата */
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #fafafa;
             box-sizing: border-box;
         }
 
         main iframe {
             width: 100%;
-            height: 600px;               /* можно увеличить при необходимости */
-            border: 1px solid #ddd;
+            height: 650px;               /* основная высота чата */
+            border: 0;
             display: block;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            main iframe {
+                height: 550px;
+            }
         }
     </style>
 </head>
@@ -41,15 +52,15 @@
     
     <div class="section">
         <strong>Mein Online-Status:</strong>
-        <span style="color: green;">Online</span>
+        <span style="color: green;">● Online</span>
     </div>
     
     <h3>Dmitry Morozov</h3>
 
-    <!-- Блок main с чатом -->
+    <!-- Блок с чатом -->
     <main>
         <iframe src="https://thelounge.hybridirc.com/?channels=morozov-online" 
-                style="border:0; width:100%; height:600px;" 
+                style="border:0; width:100%; height:100%;" 
                 allowfullscreen></iframe>
     </main>
 
@@ -68,6 +79,7 @@
             <li>Softwarelokalisierung</li>
         </ul>
     </div>
+
     <div class="section">
         <h4>IHRE VORTEILE</h4>
         <ul>
@@ -80,12 +92,14 @@
             <li>Langjährige Erfahrung bei der Umsetzung komplexer Projekte</li>
         </ul>
     </div>
+
     <div class="section">
         <h4>AUSBILDUNG</h4>
         <ul>
             <li>Universität Leipzig, Philologische Fakultät (1990-1994)</li>
         </ul>
     </div>
+
     <div class="section">
         <h4>BERUFSERFAHRUNG</h4>
         <ul>
@@ -95,36 +109,33 @@
             <li>2003 bis heute: freiberuflicher Übersetzer, erfolgreiche Zusammenarbeit mit zahlreichen europäischen Kunden</li>
         </ul>
     </div>
+
     <div class="section">
         <h4>SPRACHEN</h4>
-        <p><strong>Muttersprache:</strong></p>
-        <ul>
-            <li>Russisch</li>
-        </ul>
-        <p><strong>Arbeitssprachen:</strong></p>
-        <ul>
-            <li>Deutsch</li>
-            <li>Russisch</li>
-            <li>Englisch</li>
-            <li>Ukrainisch</li>
-        </ul>
+        <p><strong>Muttersprache:</strong> Russisch</p>
+        <p><strong>Arbeitssprachen:</strong> Deutsch, Russisch, Englisch, Ukrainisch</p>
     </div>
+
     <div class="section">
         <h4>FACHGEBIETE</h4>
         <p>Wirtschaft, Technik, Werbung, Recht, Bankwesen, Medizin, Publizistik</p>
     </div>
+
     <div class="section">
         <h4>TECHNISCHE AUSSTATTUNG</h4>
         <p>SDL Trados 2015, SDL Passolo, Windows 10, MS Office, Libre Office, Sublime Text</p>
     </div>
+
     <div class="section">
         <h4>PREISE</h4>
         <p>Bitte fordern Sie die komplette und aktuelle Preisliste oder Ihr individuelles und attraktives Pauschalangebot unter der o.a. E-Mail-Adresse an!</p>
     </div>
+
     <div class="section">
         <h4>KONTAKTE</h4>
-        <p>E-Mail: info()morozov-online.com</p>
+        <p>E-Mail: info@morozov-online.com</p>
     </div>
+
     <div class="section">
         <h4>REFERENZEN</h4>
         <p>Gern auf Anfrage</p>
