@@ -1,72 +1,144 @@
 <!DOCTYPE html>
-<html lang="de-DE">
-<head> 
-		<meta charset="utf-8"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="google-site-verification" content="oU1vP_3wLgDUgMgjGbJEgLOTA7yp9BFq2Hjc3Ill-5Q">
-		<meta content="✅ Professionelle Übersetzungen Deutsch-Russisch, Texte erfassen, Werbetexten, Lektorate, Qualitätssicherung, Dolmetschen, Texterfassung" name="description">
-		<meta content="Urkunden erfassen, Dokumente digitalisieren, Entzifferung von Urkunden, Übersetzung russischer Dokumente, Alt­russische Texte lesen, russische Handschriften entziffern, Dokumentenerfassung Russisch, Texterkennung russische Schrift, OCR russisch kyrillisch, Handschrift russisch erkennen, russische Archivdokumente, Russisch kyrillische Alttexte, alte russische Schrift übersetzen, Russisch Kurrent entziffern, Zaristische Urkunden transkribieren, kyrillische Schrift Digitalisierung, kyrillische OCR Software, Spracherkennung Russisch Dokument, wer transkribiert alte russische Dokumente, wie kann man russische Urkunden digital erfassen, russische Dokumente entziffern lassen" name="keywords">
-		<link rel="stylesheet" type="text/css" href="style.css">
-		<meta name="geo.region" content="DE-BE">
-		<link rel="apple-touch-icon" href="/apple-touch-icon-120x120-precomposed.png">
-		<link rel="apple-touch-icon" href="/apple-touch-icon-152x152-precomposed.png">
-		<link rel="canonical" href="https://morozov-online.com">
-		<link rel="icon" href="favicon.ico" type="image/x-icon">
-		<script type="application/ld+json">
-		{
-		"@context" : "https://schema.org",
-		"@type" : "Website",
-		"name" : "Dmitry Morozov",
-		"url" : "https://morozov-online.com",
-		"sameAs" : [
-		"https://disqus.com/by/morozovonline/"
-		]
-		}
-		</script><title>Professionelle Übersetzungen Deutsch-Russisch und Entzifferung der Texte vom Muttersprachler</title>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat — Dmitry Morozov</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
+        }
 
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();
-   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        #container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
 
-   ym(99175324, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/99175324" style="position:absolute; left:-9999px;" alt="russischen text entziffern" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+        /* Шапка */
+        #header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #2c3e50;
+            color: white;
+            gap: 15px;
+        }
 
+        #header-left h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        #header2 {
+            margin-top: 5px;
+        }
+
+        .status {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #2ecc71;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        #header-right h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Основная область чата */
+        #main {
+            flex: 1;                    /* Самое важное — занимает всё свободное пространство */
+            min-height: 0;              /* Необходимо при flex */
+            padding: 15px;
+            background: #f9f9f9;
+            box-sizing: border-box;
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            min-height: 600px;          /* Минимальная высота чата */
+            border: 1px solid #ddd;
+            background: white;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            #header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .iframe-wrapper {
+                min-height: 500px;
+            }
+        }
+    </style>
 </head>
-	<body>
-		<div id="container">
-			<div id="header-left">
-				<div id="header1">
-				<h1>Übersetzungen, Digitalisierung und Layout</h1>
-				</div>
-				<div id="header2">
-				<p style="height: 6px;"></p>
-				<h2 class="status online">
-                Mein Online-Status:   
-				<span class="dot"></span>
-        		<span class="status-text">Online</span>
-            	</h2>
-				</div>
-			</div>
-				<div id="header-right">
-				<p style="height: 22px;"></p>
-				<h4>Dmitry Morozov</h4>
-				</div>			
-			<div id="sidebar">
-			</div>
-			<div id="main">
-			<div><iframe src="https://thelounge.hybridirc.com/?channels=morozov-online" style="border:0; width:100%; height:500px;"></iframe></div>
-			</div>
-		</div>
+<body>
+    <div id="container">
+
+        <!-- Шапка -->
+        <div id="header">
+            <div id="header-left">
+                <div id="header1">
+                    <h1>Übersetzungen, Digitalisierung und Layout</h1>
+                </div>
+                <div id="header2">
+                    <h2 class="status online">
+                        Mein Online-Status:
+                        <span class="dot"></span>
+                        <span class="status-text">Online</span>
+                    </h2>
+                </div>
+            </div>
+            
+            <div id="header-right">
+                <h4>Dmitry Morozov</h4>
+            </div>
+        </div>
+
+        <!-- Блок чата -->
+        <div id="main">
+            <div class="iframe-wrapper">
+                <iframe src="https://thelounge.hybridirc.com/?channels=morozov-online" 
+                        allowfullscreen 
+                        title="The Lounge Chat"></iframe>
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
