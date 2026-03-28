@@ -165,7 +165,7 @@ color: #000000;
         transform: scale(1);
     }
     50% {
-        box-shadow: 0 0 0 8px var(--dot-color);
+        box-shadow: 0 0 0 7px var(--dot-color);
         transform: scale(1.02);
     }
 }
