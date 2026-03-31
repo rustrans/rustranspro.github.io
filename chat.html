@@ -83,55 +83,8 @@
 			</div>
 			<div id="main">
 				<div class="box">
-
+				<iframe src="https://thelounge.hybridirc.com/?channels=morozov-online&command=/query DmiMor" style="border:0; width:100%; height:500px;"></iframe>
 				</div>
-<!-- Большая заметная кнопка -->
-<button id="connectAndCallBtn" 
-        style="display: block; margin: 15px auto; padding: 15px 30px; font-size: 18px; font-weight: bold; 
-               background: #0066cc; color: white; border: none; border-radius: 8px; cursor: pointer;">
-    Подключиться и отправить запрос DmiMor
-</button>
-
-<!-- Сам iframe чата -->
-<iframe id="chatFrame" 
-        src="https://thelounge.hybridirc.com/?channels=morozov-online&nick=Гость??" 
-        style="border: 0; width: 100%; height: 600px; margin-top: 10px;" 
-        allowfullscreen>
-</iframe>
-
-<script>
-// Ждём полной загрузки страницы, чтобы элементы точно существовали
-document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('connectAndCallBtn');
-    const iframe = document.getElementById('chatFrame');
-
-    if (!btn) {
-        console.error('Кнопка не найдена! Проверь id="connectAndCallBtn"');
-        return;
-    }
-
-    btn.addEventListener('click', function() {
-        // Показываем пользователю понятное сообщение
-        alert('Чат открывается...\n\nПосле подключения просто нажми Enter в поле ввода чата — сообщение «Call-request to DmiMor» уже будет готово.');
-
-        // Прокручиваем страницу вниз к чату
-        iframe.scrollIntoView({ behavior: "smooth" });
-
-        // Попытка отправить команду через postMessage (на всякий случай)
-        setTimeout(() => {
-            try {
-                iframe.contentWindow.postMessage({
-                    action: "send",
-                    message: "Call-request to DmiMor"
-                }, "https://thelounge.hybridirc.com");
-            } catch (e) {
-                console.log('postMessage не сработал (это нормально для публичного The Lounge)');
-            }
-        }, 2000); // небольшая задержка после клика
-    });
-});
-</script>
-			
 			</div>
 		</div>
 </body>
