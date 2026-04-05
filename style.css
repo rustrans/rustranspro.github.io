@@ -88,12 +88,9 @@ padding-left: 10px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: nowrap;
-    gap: 15px;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-#header-right {
+    flex-wrap: nowrap !important;
+    overflow: hidden !important;
+}#header-right {
 width: 255px;
 height: 69px;
 background-color: #363636;
