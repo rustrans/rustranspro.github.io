@@ -133,3 +133,13 @@ overflow: auto;
 p.qr-style {
 color: #000000;
 }
+.button-menu {
+    display: inline-block;
+    padding: 5px 0px 0px 0px;
+    background: #555555;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+    margin: 0;
+}
