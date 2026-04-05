@@ -132,63 +132,43 @@ overflow: auto;
 p.qr-style {
 color: #000000;
 }
+/* Кнопка Support-Chat — прижата влево */
 .inverse-support-chat {
     text-decoration: none;
     display: inline-block;
+    margin-right: 20px;          /* небольшое расстояние до следующего элемента меню */
 }
+
 .inverse-support-chat h2 {
     margin: 0;
-    padding: 18px 36px;
-    background-color: #003366;     /* глубокий синий — надёжный и консервативный цвет */
+    padding: 14px 28px;
+    background-color: #003366;
     color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    border: 2px solid #002244;
+    box-shadow: 0 2px 4px rgba(0, 35, 80, 0.15);
 }
+
 .inverse-support-chat h2:hover {
     background-color: #002244;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 51, 102, 0.25);
+    border-color: #001833;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 51, 102, 0.25);
 }
-/* === Упрощённое переключение статуса === */
-.status {
-    --dot-color: #22c55e;
-    --pulse-speed: 2.2s;
-}
-.status.online {
-    --dot-color: #22c55e;
-    --pulse-speed: 2.2s;
-}
-.status.away {
-    --dot-color: #eab308;
-    --pulse-speed: 2.6s;
-}
-.status.offline {
-    --dot-color: #ef4444;
-    --pulse-speed: 2.6s;
-}
-/* === Кружочек статуса === */
-.dot {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin-left: 1px;        /* отступ от двоеточия */
-    margin-right: 1px;
-    vertical-align: middle;
-    background-color: var(--dot-color);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
-    position: relative;
-    top: -3px;
-    
-    /* Пульсация */
-    animation: pulse var(--pulse-speed) infinite ease-in-out;
-}
-/* Анимация пульсации */
-@keyframes pulse {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(255,255,255,0);
-        transform: scale(1);
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .inverse-support-chat h2 {
+        padding: 12px 20px;
+        font-size: 1.1rem;
     }
-    50% {
-        box-shadow: 0 0 0 5px var(--dot-color);
-        transform: scale(1.02);
+    
+    .inverse-support-chat {
+        margin-right: 10px;
     }
 }
