@@ -141,16 +141,15 @@ color: #000000;
     border-radius: 4px;
     white-space: nowrap;
     margin: 0;
-    transition: all 0.4s ease;           /* плавность */
+    animation: gentleShift 8s ease-in-out infinite;
     }
 .button-menu,
 .button-menu:link,
 .button-menu:visited {
     color: #e4e0e0;
 }
-.button-menu:hover {
-    background: #666666;                 /* чуть светлее серого */
-    color: #f0f0f0;                      /* немного светлее текст */
-    transform: translateY(-2px);         /* лёгкий подъём */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+@keyframes gentleShift {
+    0%   { background: #555555; }
+    50%  { background: #686868; }
+    100% { background: #555555; }
 }
