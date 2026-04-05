@@ -85,15 +85,10 @@ vertical-align: middle;
 padding-left: 10px;
 }
 #header2 {
-    display: flex !important;           /* используем flex для контроля */
-    align-items: center;                /* вертикальное выравнивание по центру */
-    justify-content: flex-start;        /* всё прижато влево */
-    flex-wrap: nowrap;                  /* запрещаем перенос на новую строку */
-    gap: 15px;                          /* расстояние между элементами */
-    padding: 12px 20px;                 /* уменьшил padding сверху/снизу, если нужно */
-    width: 100%;                        /* на всякий случай */
-    box-sizing: border-box;             /* важно! */
-    overflow: hidden;                   /* на случай, если всё равно вылезает */
+height: 27px;
+padding-left: 10px;
+border-top: 2px solid grey;
+border-bottom: 5px solid grey;
 }
 #header-right {
 width: 255px;
