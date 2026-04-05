@@ -85,10 +85,9 @@ vertical-align: middle;
 padding-left: 10px;
 }
 #header2 {
-height: 27px;
-padding-left: 10px;
-border-top: 2px solid grey;
-border-bottom: 5px solid grey;
+display: flex;
+align-items: center;
+justify-content: flex-start;
 }
 #header-right {
 width: 255px;
@@ -132,12 +131,9 @@ overflow: auto;
 p.qr-style {
 color: #000000;
 }
-/* Кнопка Support-Chat — прижата влево и не вылезает из контейнера */
 .inverse-support-chat {
-    text-decoration: none;
-    display: inline-block;
-    flex-shrink: 0;              /* предотвращает сжатие кнопки */
-    margin-right: 20px;          /* расстояние до следующего элемента */
+    margin: 0;
+    flex-shrink: 0;
 }
 
 .inverse-support-chat h2 {
