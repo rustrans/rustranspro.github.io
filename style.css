@@ -85,12 +85,12 @@ vertical-align: middle;
 padding-left: 10px;
 }
 #header2 {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: nowrap !important;
-    overflow: hidden !important;
-}#header-right {
+height: 27px;
+padding-left: 10px;
+border-top: 2px solid grey;
+border-bottom: 5px solid grey;
+}
+#header-right {
 width: 255px;
 height: 69px;
 background-color: #363636;
