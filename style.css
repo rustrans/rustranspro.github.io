@@ -141,15 +141,15 @@ color: #000000;
     border-radius: 4px;
     white-space: nowrap;
     margin: 0;
-    animation: gentleShift 8s ease-in-out infinite;
+    animation: strongPulse 2.2s ease-in-out infinite;
     }
+@keyframes gentleShift {
+    0%   { background: #555555; }
+    50%  { background: #8a8a8a; }
+    100% { background: #555555; }
+}
 .button-menu,
 .button-menu:link,
 .button-menu:visited {
     color: #e4e0e0;
-}
-@keyframes gentleShift {
-    0%   { background: #555555; }
-    50%  { background: #686868; }
-    100% { background: #555555; }
 }
