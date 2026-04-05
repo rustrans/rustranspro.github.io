@@ -81,66 +81,91 @@
 				</ul>
 				<a href="https://morozov-online.com/index.html"style="margin-top: 30px; display: inline-block;">Zurück zur Startseite</a>	
 			</div>
-				<div id="main">
-				  <div class="box">
-				    <div id='tawk_69d136bbb8aa781c3b310349'></div>
-				
-				    <!--Start of Tawk.to Script-->
-				    <script type="text/javascript">
-				    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-				    Tawk_API.embedded = 'tawk_69d136bbb8aa781c3b310349';
-				    (function(){
-				      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-				      s1.async = true;
-				      s1.src = 'https://embed.tawk.to/69d136bbb8aa781c3b310349/1jlcp04ho';
-				      s1.charset = 'UTF-8';
-				      s1.setAttribute('crossorigin', '*');
-				      s0.parentNode.insertBefore(s1, s0);
-				    })();
-				    </script>
-				    <!--End of Tawk.to Script-->
-				
-				    <!-- CSS-хак для удаления серого заголовка "Customer Support" -->
-				    <style>
-				      #tawk_69d136bbb8aa781c3b310349,
-				      #tawk_69d136bbb8aa781c3b310349 ~ iframe,
-				      .tawk-chat-container,
-				      .tawk-widget-container,
-				      .tawk-header,
-				      .tawk-chat-header,
-				      [class*="tawk-header"],
-				      [class*="header-card"],
-				      [class*="HeadingCard"],
-				      [class*="tawk-heading"],
-				      .tawk-card-header {
-				        border-top: none !important;
-				        padding-top: 0 !important;
-				        margin-top: 0 !important;
-				      }
-				
-				      /* Основное скрытие серого сегмента сверху */
-				      [class*="tawk-header"] {
-				        display: none !important;
-				        height: 0 !important;
-				        min-height: 0 !important;
-				        visibility: hidden !important;
-				        overflow: hidden !important;
-				      }
-				
-				      /* Дополнительно убираем возможные остатки (тень, бордер, фон) */
-				      .tawk-chat-header,
-				      .tawk-header-card,
-				      .tawk-heading-card {
-				        display: none !important;
-				      }
-				
-				      /* Убираем верхний отступ внутри чата */
-				      .tawk-message-container {
-				        padding-top: 10px !important;
-				      }
-				    </style>
-				  </div>
-				</div>
+						<div id="main">
+						  <div class="box">
+						    <div id='tawk_69d136bbb8aa781c3b310349'></div>
+						
+						    <!--Start of Tawk.to Script-->
+						    <script type="text/javascript">
+						    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+						    Tawk_API.embedded = 'tawk_69d136bbb8aa781c3b310349';
+						    (function(){
+						      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+						      s1.async = true;
+						      s1.src = 'https://embed.tawk.to/69d136bbb8aa781c3b310349/1jlcp04ho';
+						      s1.charset = 'UTF-8';
+						      s1.setAttribute('crossorigin', '*');
+						      s0.parentNode.insertBefore(s1, s0);
+						    })();
+						    </script>
+						    <!--End of Tawk.to Script-->
+						
+						    <!-- Улучшенный CSS-хак для удаления серого заголовка "Customer Support" -->
+						    <style>
+						      /* Основные селекторы для embed */
+						      #tawk_69d136bbb8aa781c3b310349 iframe,
+						      #tawk_69d136bbb8aa781c3b310349 ~ iframe {
+						        border: none !important;
+						      }
+						
+						      /* Пытаемся достучаться до внутренних элементов чата */
+						      #tawk_69d136bbb8aa781c3b310349 iframe {
+						        height: 100% !important;
+						      }
+						    </style>
+						
+						    <!-- JavaScript-хак (самый эффективный для iframe) -->
+						    <script>
+						      function hideTawkHeader() {
+						        const iframe = document.querySelector('#tawk_69d136bbb8aa781c3b310349 iframe');
+						        if (!iframe) {
+						          setTimeout(hideTawkHeader, 800); // повторяем попытку
+						          return;
+						        }
+						
+						        try {
+						          const doc = iframe.contentDocument || iframe.contentWindow.document;
+						          if (doc) {
+						            const styles = `
+						              .tawk-header, 
+						              .tawk-chat-header, 
+						              [class*="tawk-header"], 
+						              [class*="header-card"], 
+						              [class*="HeadingCard"],
+						              .tawk-card-header,
+						              header, 
+						              .tawk-top-bar {
+						                display: none !important;
+						                height: 0 !important;
+						                min-height: 0 !important;
+						                padding: 0 !important;
+						                margin: 0 !important;
+						                visibility: hidden !important;
+						                overflow: hidden !important;
+						              }
+						              .tawk-message-container {
+						                padding-top: 8px !important;
+						              }
+						            `;
+						
+						            const styleEl = doc.createElement('style');
+						            styleEl.textContent = styles;
+						            doc.head.appendChild(styleEl);
+						          }
+						        } catch(e) {
+						          // Ошибка CORS — пробуем ещё раз через задержку
+						          setTimeout(hideTawkHeader, 1500);
+						        }
+						      }
+						
+						      // Запускаем после загрузки страницы
+						      window.addEventListener('load', function() {
+						        setTimeout(hideTawkHeader, 1200);   // первая попытка
+						        setTimeout(hideTawkHeader, 3000);   // вторая
+						      });
+						    </script>
+						  </div>
+						</div>
 		</div>
 </body>
 </html>
