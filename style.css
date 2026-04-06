@@ -141,9 +141,16 @@ color: #000000;
     border-radius: 4px;
     white-space: nowrap;
     margin: 0;
+    margin-right: 15px;
     }
 .button-menu,
 .button-menu:link,
 .button-menu:visited {
     color: #e4e0e0;
+}
+.button-menu.active {
+    background: #333333;        /* более тёмный фон */
+    color: #ffffff;             /* чисто белый текст */
+    font-weight: 600;           /* жирнее текст */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
