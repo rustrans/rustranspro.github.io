@@ -29,7 +29,7 @@ padding-top: 5px;
 #container { 
 width: 760px;
 border: 3px solid #363636;
-height: 620px;
+height: 610px;
 margin: 0 auto;
 color: white;
 }
@@ -122,7 +122,7 @@ padding-left: 30px;
 .box {
 padding-left: 10px;
 width: 523px;
-height: 510px;
+height: 520px;
 overflow: hidden;
 }
 .box-scroll {
