@@ -1,66 +1,56 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="UTF-8">
-<title>Admin Status</title>
-</head>
-<body>
+<h2>Управление статусом</h2>
 
-<h2>Status setzen</h2>
+<div id="current">Загрузка...</div>
 
-<button onclick="setStatus('green')">🟢 Online</button>
-<button onclick="setStatus('yellow')">🟡 Teilweise erreichbar</button>
-<button onclick="setStatus('red')">🔴 Offline</button>
+<br>
+
+<button onclick="setStatus('green', 'Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa 15 Minuten.')">
+Зелёный
+</button>
+
+<button onclick="setStatus('yellow', 'Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine Stunde.')">
+Жёлтый
+</button>
+
+<button onclick="setStatus('red', 'Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.')">
+Красный
+</button>
 
 <br><br>
 
-<textarea id="customText" placeholder="Eigener Text"></textarea><br>
-<button onclick="setCustom()">Custom setzen</button>
+<input id="customText" placeholder="Свой текст">
+<button onclick="setCustom()">Отправить</button>
 
 <script>
-const API = "https://rustranspro-github-io.vercel.app/api/set-status";
+const API = "https://rustranspro-github-io.vercel.app/api";
 
-function getText(mode) {
-  if (mode === "green") {
-    return "Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa 15 Minuten.";
-  }
-  if (mode === "yellow") {
-    return "Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine Stunde.";
-  }
-  if (mode === "red") {
-    return "Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.";
-  }
-}
-
-async function setStatus(mode) {
-  await fetch(API, {
+async function setStatus(mode, text) {
+  await fetch(API + "/set-status", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
-      mode,
-      text: getText(mode)
+      mode: mode,
+      text: text
     })
   });
 
-  alert("Status geändert");
+  loadCurrentStatus();
 }
 
-async function setCustom() {
+function setCustom() {
   const text = document.getElementById("customText").value;
-
-  await fetch(API, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      mode: "custom",
-      text
-    })
-  });
-
-  alert("Custom gesetzt");
+  setStatus("custom", text);
 }
+
+async function loadCurrentStatus() {
+  const res = await fetch(API + "/status");
+  const data = await res.json();
+
+  document.getElementById("current").innerText =
+    "Текущий статус: " + data.mode;
+}
+
+loadCurrentStatus();
 </script>
-
-</body>
-</html>
-
