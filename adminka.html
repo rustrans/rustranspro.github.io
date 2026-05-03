@@ -66,62 +66,74 @@
 					<p style="padding-top: 7px;">Wenn Sie bevorzugt über Ihr Smartphone <strong>im gewohnten Messenger-Format</strong> chatten möchten, können Sie gerne <a href="https://tawk.to/chat/69d136bbb8aa781c3b310349/1jlcp04ho">diesen direkten Link</a> nutzen.
 					</p>
 			</div>
-			<div id="main" style="display: flex; padding: 10px;">
-						<body style="font-family: Arial; text-align: center; margin-top: 100px;">
-						<div id="status">Lade...</div>
-						<script>
-						const API = "https://rustranspro-github-io.vercel.app/api";
-						function getColor(mode) {
-						  if (mode === "green") return "green";
-						  if (mode === "yellow") return "orange";
-						  if (mode === "red") return "red";
-						  return "gray";
-						}
-									function timeAgo(ts) {
-									  if (!ts) return "";
-									
-									  const diff = Date.now() - ts;
-									  const minutes = Math.floor(diff / 60000);
-									  const hours = Math.floor(minutes / 60);
-									
-									  if (hours > 0) {
-									    return `${hours} Stund. ${minutes % 60} Minuten`;
-									  }
-									
-									  return `${minutes} Minuten`;
-									}
-									
-									async function loadStatus() {
-									  try {
-									    const res = await fetch(API + "/status");
-									    const data = await res.json();
-									
-									    document.getElementById("status").innerHTML = `
-									      <div style="font-size:18px;">
-									        <span style="
-									          display:inline-block;
-									          width:14px;
-									          height:14px;
-									          border-radius:50%;
-									          background:${getColor(data.mode)};
-									          margin-right:8px;
-									        "></span>
-									        ${data.text}
-									      </div>
-									      <div style="margin-top:10px; font-size:12px; color:gray;">
-									        Aktualisiert: vor ${timeAgo(data.updatedAt)}
-									      </div>
-									    `;
-									  } catch (e) {
-									    document.getElementById("status").innerText = "Ошибка загрузки";
-									  }
-									}
-									
-									setInterval(loadStatus, 5000);
-									loadStatus();
-									</script>
+<div id="online-status-widget"></div>
 
-</body>
+<script>
+(function () {
+  const API = "https://rustranspro-github-io.vercel.app/api";
+  const container = document.getElementById("online-status-widget");
+
+  function getColor(mode) {
+    if (mode === "green") return "#28a745";
+    if (mode === "yellow") return "#ffc107";
+    if (mode === "red") return "#dc3545";
+    return "gray";
+  }
+
+  function timeAgo(ts) {
+    if (!ts) return "";
+
+    const diff = Date.now() - ts;
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(minutes / 60);
+
+    if (hours > 0) {
+      return `${hours} Stund. ${minutes % 60} Minuten`;
+    }
+
+    return `${minutes} Minuten`;
+  }
+
+  async function loadStatus() {
+    try {
+      const res = await fetch(API + "/status");
+      const data = await res.json();
+
+      container.innerHTML = `
+        <div style="
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+          line-height: 1.4;
+        ">
+          <div>
+            <span style="
+              display:inline-block;
+              width:12px;
+              height:12px;
+              border-radius:50%;
+              background:${getColor(data.mode)};
+              margin-right:8px;
+            "></span>
+            ${data.text}
+          </div>
+          <div style="
+            margin-top:6px;
+            font-size:12px;
+            color:gray;
+          ">
+            Aktualisiert: vor ${timeAgo(data.updatedAt)}
+          </div>
+        </div>
+      `;
+    } catch (e) {
+      container.innerText = "Ошибка загрузки";
+    }
+  }
+
+  loadStatus();
+  setInterval(loadStatus, 5000);
+})();
+</script>
 			</div>
 		</div> 
 	</body>
