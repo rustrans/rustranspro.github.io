@@ -1,4 +1,4 @@
-<body>
+<body style="font-family: Arial; padding: 40px;">
 
 <h2>Online Status – Admin</h2>
 
@@ -6,26 +6,38 @@
 
 <hr>
 
-<button onclick="setStatus('green', 'Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa 15 Minuten.')">
-🟢 Зеленый
-</button>
-
-<button onclick="setStatus('yellow', 'Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine Stunde.')">
-🟡 Желтый
-</button>
-
-<button onclick="setStatus('red', 'Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.')">
-🔴 Красный
-</button>
+<button id="btn-green" onclick="setStatus('green', textGreen)">🟢 Зеленый</button>
+<button id="btn-yellow" onclick="setStatus('yellow', textYellow)">🟡 Желтый</button>
+<button id="btn-red" onclick="setStatus('red', textRed)">🔴 Красный</button>
 
 <br><br>
 
 <input id="customText" placeholder="Свой текст" style="width:300px;">
 <button onclick="setCustom()">Отправить</button>
 
+<style>
+button {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.active {
+  border: 2px solid black;
+  background: #eee;
+}
+</style>
+
 <script>
 const API = "https://rustranspro-github-io.vercel.app/api";
 
+// тексты
+const textGreen = "Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa 15 Minuten.";
+const textYellow = "Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine Stunde.";
+const textRed = "Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.";
+
+// установка статуса
 async function setStatus(mode, text) {
   await fetch(API + "/set-status", {
     method: "POST",
@@ -41,17 +53,32 @@ async function setStatus(mode, text) {
   loadCurrentStatus();
 }
 
+// кастомный текст
 function setCustom() {
   const text = document.getElementById("customText").value;
   setStatus("custom", text);
 }
 
+// подсветка кнопок
+function highlight(mode) {
+  document.getElementById('btn-green').classList.remove('active');
+  document.getElementById('btn-yellow').classList.remove('active');
+  document.getElementById('btn-red').classList.remove('active');
+
+  if (mode === 'green') document.getElementById('btn-green').classList.add('active');
+  if (mode === 'yellow') document.getElementById('btn-yellow').classList.add('active');
+  if (mode === 'red') document.getElementById('btn-red').classList.add('active');
+}
+
+// загрузка текущего статуса
 async function loadCurrentStatus() {
   const res = await fetch(API + "/status");
   const data = await res.json();
 
   document.getElementById("current").innerHTML =
     "Текущий статус: <b>" + data.mode + "</b><br>" + data.text;
+
+  highlight(data.mode);
 }
 
 loadCurrentStatus();
