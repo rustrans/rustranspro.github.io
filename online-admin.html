@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Admin Status</title>
+</head>
+<body>
+
+<h2>Status setzen</h2>
+
+<button onclick="setStatus('green')">🟢 Online</button>
+<button onclick="setStatus('yellow')">🟡 Teilweise erreichbar</button>
+<button onclick="setStatus('red')">🔴 Offline</button>
+
+<br><br>
+
+<textarea id="customText" placeholder="Eigener Text"></textarea><br>
+<button onclick="setCustom()">Custom setzen</button>
+
+<script>
+const API = "https://rustranspro-github-io.vercel.app/api/set-status";
+
+function getText(mode) {
+  if (mode === "green") {
+    return "Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa 15 Minuten.";
+  }
+  if (mode === "yellow") {
+    return "Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine Stunde.";
+  }
+  if (mode === "red") {
+    return "Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.";
+  }
+}
+
+async function setStatus(mode) {
+  await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mode,
+      text: getText(mode)
+    })
+  });
+
+  alert("Status geändert");
+}
+
+async function setCustom() {
+  const text = document.getElementById("customText").value;
+
+  await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mode: "custom",
+      text
+    })
+  });
+
+  alert("Custom gesetzt");
+}
+</script>
+
+</body>
+</html>
 
