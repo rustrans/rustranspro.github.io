@@ -7,6 +7,10 @@ const redis = new Redis({
 
 export default async function handler(req, res) {
   try {
+    // ✅ CORS (чтобы сайт мог обращаться к API)
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+
     const status = await redis.get('status');
 
     let parsed = null;
