@@ -8,7 +8,13 @@ const redis = new Redis({
 export default async function handler(req, res) {
   const status = await redis.get('status');
 
-  res.json({
-    text: status || "Статус не задан"
-  });
+  const parsed = status ? JSON.parse(status) : null;
+
+  res.json(
+    parsed || {
+      mode: "unknown",
+      text: "Статус не задан",
+      updatedAt: 0
+    }
+  );
 }
