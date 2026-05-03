@@ -1,5 +1,15 @@
 <body style="font-family: Arial; padding: 40px;">
+<script>
+const PASSWORD = "piumuton"; // 👈 поменяй на свой
 
+let input = prompt("Введите пароль:");
+
+if (input !== PASSWORD) {
+  document.body.innerHTML = "<h2>Доступ запрещён</h2>";
+  throw new Error("Unauthorized");
+}
+</script>
+  
 <h2>Online Status – Admin</h2>
 
 <div id="current">Загрузка текущего статуса...</div>
