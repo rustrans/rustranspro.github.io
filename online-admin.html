@@ -1,54 +1,95 @@
-<body style="font-family: Arial; padding: 40px;">
-<meta name="robots" content="noindex, nofollow">
-<script>
-const PASSWORD = "piumuton"; // 👈 поменяй на свой
+<body>
 
-let input = prompt("Введите пароль:");
+<div class="container">
 
-if (input !== PASSWORD) {
-  document.body.innerHTML = "<h2>Доступ запрещён</h2>";
-  throw new Error("Unauthorized");
-}
-</script>
-  
-<h2>Online Status – Admin</h2>
+  <h2>Статус</h2>
 
-<div id="current">Загрузка текущего статуса...</div>
+  <div id="current" class="card">Загрузка...</div>
 
-<hr>
+  <div class="buttons">
+    <button id="btn-green" class="green" onclick="setStatus('green', textGreen)">🟢 Online</button>
+    <button id="btn-yellow" class="yellow" onclick="setStatus('yellow', textYellow)">🟡 Teilweise</button>
+    <button id="btn-red" class="red" onclick="setStatus('red', textRed)">🔴 Offline</button>
+  </div>
 
-<button id="btn-green" onclick="setStatus('green', textGreen)">🟢 Зеленый</button>
-<button id="btn-yellow" onclick="setStatus('yellow', textYellow)">🟡 Желтый</button>
-<button id="btn-red" onclick="setStatus('red', textRed)">🔴 Красный</button>
+  <div class="custom">
+    <textarea id="customText" placeholder="Свой текст статуса..."></textarea>
+    <button class="custom-btn" onclick="setCustom()">Отправить</button>
+  </div>
 
-<br><br>
-
-<input id="customText" placeholder="Свой текст" style="width:300px;">
-<button onclick="setCustom()">Отправить</button>
+</div>
 
 <style>
-button {
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #ccc;
-  cursor: pointer;
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
 }
 
+.container {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.buttons button {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+
+.green { background: #28a745; }
+.yellow { background: #ffc107; color: black; }
+.red { background: #dc3545; }
+
 .active {
-  border: 2px solid black;
-  background: #eee;
+  outline: 3px solid black;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.custom-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: white;
 }
 </style>
 
 <script>
 const API = "https://rustranspro-github-io.vercel.app/api";
 
-// тексты
 const textGreen = "Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa 15 Minuten.";
 const textYellow = "Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine Stunde.";
 const textRed = "Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.";
 
-// установка статуса
 async function setStatus(mode, text) {
   await fetch(API + "/set-status", {
     method: "POST",
@@ -64,13 +105,11 @@ async function setStatus(mode, text) {
   loadCurrentStatus();
 }
 
-// кастомный текст
 function setCustom() {
   const text = document.getElementById("customText").value;
   setStatus("custom", text);
 }
 
-// подсветка кнопок
 function highlight(mode) {
   document.getElementById('btn-green').classList.remove('active');
   document.getElementById('btn-yellow').classList.remove('active');
@@ -81,13 +120,12 @@ function highlight(mode) {
   if (mode === 'red') document.getElementById('btn-red').classList.add('active');
 }
 
-// загрузка текущего статуса
 async function loadCurrentStatus() {
   const res = await fetch(API + "/status");
   const data = await res.json();
 
   document.getElementById("current").innerHTML =
-    "Текущий статус: <b>" + data.mode + "</b><br>" + data.text;
+    "<b>" + data.text + "</b>";
 
   highlight(data.mode);
 }
