@@ -1,4 +1,3 @@
 User-agent: *
-Disallow:
-
+Disallow: /online-admin.html
 Sitemap: https://morozov-online.com/sitemap.xml
