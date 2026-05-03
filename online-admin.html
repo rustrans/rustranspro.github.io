@@ -24,33 +24,36 @@ body {
   font-family: Arial, sans-serif;
   background: #f5f5f5;
   margin: 0;
+  font-size: 18px; /* ↑ базовый размер */
 }
 
 .container {
-  max-width: 500px;
+  max-width: 95%; /* почти на всю ширину экрана */
   margin: auto;
-  padding: 20px;
+  padding: 25px;
 }
 
 h2 {
   text-align: center;
+  font-size: 28px; /* крупнее заголовок */
 }
 
 .card {
   background: white;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  font-size: 16px;
+  padding: 25px; /* ↑ было 15 */
+  border-radius: 12px;
+  margin-bottom: 25px;
+  font-size: 20px; /* ↑ текст */
+  line-height: 1.4;
 }
 
 .buttons button {
   width: 100%;
-  padding: 15px;
-  margin-bottom: 10px;
-  font-size: 18px;
+  padding: 25px; /* ↑ было 15 (примерно +100% по высоте) */
+  margin-bottom: 15px;
+  font-size: 22px; /* ↑ крупный текст */
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   color: white;
 }
 
@@ -59,25 +62,25 @@ h2 {
 .red { background: #dc3545; }
 
 .active {
-  outline: 3px solid black;
+  outline: 4px solid black; /* заметнее */
 }
 
 textarea {
   width: 100%;
-  height: 80px;
-  padding: 10px;
-  border-radius: 8px;
+  height: 120px; /* ↑ было 80 */
+  padding: 15px;
+  border-radius: 10px;
   border: 1px solid #ccc;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .custom-btn {
   width: 100%;
-  margin-top: 10px;
-  padding: 12px;
-  font-size: 16px;
+  margin-top: 15px;
+  padding: 20px;
+  font-size: 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #333;
   color: white;
 }
