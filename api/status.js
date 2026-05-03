@@ -6,15 +6,31 @@ const redis = new Redis({
 });
 
 export default async function handler(req, res) {
-  const status = await redis.get('status');
+  try {
+    const status = await redis.get('status');
 
-  const parsed = status ? JSON.parse(status) : null;
+    let parsed = null;
 
-  res.json(
-    parsed || {
-      mode: "unknown",
-      text: "Статус не задан",
-      updatedAt: 0
+    if (status) {
+      try {
+        parsed = typeof status === 'string' ? JSON.parse(status) : status;
+      } catch (e) {
+        parsed = null;
+      }
     }
-  );
+
+    res.status(200).json(
+      parsed || {
+        mode: "unknown",
+        text: "Status nicht gesetzt",
+        updatedAt: 0
+      }
+    );
+
+  } catch (error) {
+    res.status(500).json({
+      error: "Server error",
+      details: error.message
+    });
+  }
 }
