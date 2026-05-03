@@ -1,24 +1,26 @@
-<h2>Управление статусом</h2>
+<body>
 
-<div id="current">Загрузка...</div>
+<h2>Online Status – Admin</h2>
 
-<br>
+<div id="current">Загрузка текущего статуса...</div>
+
+<hr>
 
 <button onclick="setStatus('green', 'Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa 15 Minuten.')">
-Зелёный
+🟢 Зеленый
 </button>
 
 <button onclick="setStatus('yellow', 'Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine Stunde.')">
-Жёлтый
+🟡 Желтый
 </button>
 
 <button onclick="setStatus('red', 'Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.')">
-Красный
+🔴 Красный
 </button>
 
 <br><br>
 
-<input id="customText" placeholder="Свой текст">
+<input id="customText" placeholder="Свой текст" style="width:300px;">
 <button onclick="setCustom()">Отправить</button>
 
 <script>
@@ -48,9 +50,11 @@ async function loadCurrentStatus() {
   const res = await fetch(API + "/status");
   const data = await res.json();
 
-  document.getElementById("current").innerText =
-    "Текущий статус: " + data.mode;
+  document.getElementById("current").innerHTML =
+    "Текущий статус: <b>" + data.mode + "</b><br>" + data.text;
 }
 
 loadCurrentStatus();
 </script>
+
+</body>
