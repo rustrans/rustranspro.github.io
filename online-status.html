@@ -1,68 +1,59 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Online Status</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 100px;
-    }
+<body style="font-family: Arial; text-align: center; margin-top: 100px;">
 
-    .dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: inline-block;
-      margin-right: 10px;
-    }
+<div id="status">Lade...</div>
 
-    .green { background: green; }
-    .yellow { background: orange; }
-    .red { background: red; }
+<script>
+const API = "https://rustranspro-github-io.vercel.app/api";
 
-    #time {
-      margin-top: 10px;
-      color: gray;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body>
+function getColor(mode) {
+  if (mode === "green") return "green";
+  if (mode === "yellow") return "orange";
+  if (mode === "red") return "red";
+  return "gray";
+}
 
-  <div>
-    <span id="statusDot" class="dot"></span>
-    <span id="statusText">Lade...</span>
-  </div>
+function timeAgo(ts) {
+  if (!ts) return "";
 
-  <div id="time"></div>
+  const diff = Date.now() - ts;
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(minutes / 60);
 
-  <script>
-    async function loadStatus() {
-      const res = await fetch("https://rustranspro-github-io.vercel.app/api/status");
-      const data = await res.json();
+  if (hours > 0) {
+    return `${hours} ч ${minutes % 60} мин назад`;
+  }
 
-      const dot = document.getElementById("statusDot");
-      const text = document.getElementById("statusText");
-      const time = document.getElementById("time");
+  return `${minutes} мин назад`;
+}
 
-      dot.className = "dot " + data.mode;
-      text.textContent = data.text;
+async function loadStatus() {
+  try {
+    const res = await fetch(API + "/status");
+    const data = await res.json();
 
-      if (data.updatedAt) {
-        const diff = Math.floor((Date.now() - data.updatedAt) / 60000);
-        const hours = Math.floor(diff / 60);
-        const minutes = diff % 60;
+    document.getElementById("status").innerHTML = `
+      <div style="font-size:18px;">
+        <span style="
+          display:inline-block;
+          width:14px;
+          height:14px;
+          border-radius:50%;
+          background:${getColor(data.mode)};
+          margin-right:8px;
+        "></span>
+        ${data.text}
+      </div>
+      <div style="margin-top:10px; font-size:12px; color:gray;">
+        Обновлено: ${timeAgo(data.updatedAt)}
+      </div>
+    `;
+  } catch (e) {
+    document.getElementById("status").innerText = "Ошибка загрузки";
+  }
+}
 
-        time.textContent = `Letzte Änderung: vor ${hours}h ${minutes}m`;
-      }
-    }
-
-    loadStatus();
-    setInterval(loadStatus, 60000); // обновление каждую минуту
-  </script>
+setInterval(loadStatus, 5000);
+loadStatus();
+</script>
 
 </body>
-</html>
-
