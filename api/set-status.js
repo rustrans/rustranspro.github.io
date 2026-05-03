@@ -6,16 +6,21 @@ const redis = new Redis({
 });
 
 export default async function handler(req, res) {
-  // CORS
+  // 🔥 КРИТИЧНО: CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // 🔥 КРИТИЧНО: обработка preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // 👇 ВАЖНО: парсим вручную
     const body = typeof req.body === 'string'
       ? JSON.parse(req.body)
       : req.body;
@@ -30,7 +35,7 @@ export default async function handler(req, res) {
 
     await redis.set('status', JSON.stringify(data));
 
-    res.json({ success: true, data });
+    res.status(200).json({ success: true, data });
 
   } catch (err) {
     res.status(500).json({
