@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Status</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .green { background: green; }
+    .yellow { background: orange; }
+    .red { background: red; }
+
+    #time {
+      margin-top: 10px;
+      color: gray;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <span id="statusDot" class="dot"></span>
+    <span id="statusText">Lade...</span>
+  </div>
+
+  <div id="time"></div>
+
+  <script>
+    async function loadStatus() {
+      const res = await fetch("https://rustranspro-github-io.vercel.app/api/status");
+      const data = await res.json();
+
+      const dot = document.getElementById("statusDot");
+      const text = document.getElementById("statusText");
+      const time = document.getElementById("time");
+
+      dot.className = "dot " + data.mode;
+      text.textContent = data.text;
+
+      if (data.updatedAt) {
+        const diff = Math.floor((Date.now() - data.updatedAt) / 60000);
+        const hours = Math.floor(diff / 60);
+        const minutes = diff % 60;
+
+        time.textContent = `Letzte Änderung: vor ${hours}h ${minutes}m`;
+      }
+    }
+
+    loadStatus();
+    setInterval(loadStatus, 60000); // обновление каждую минуту
+  </script>
+
+</body>
+</html>
 
