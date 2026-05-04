@@ -89,9 +89,9 @@ textarea {
 <script>
 const API = "https://rustranspro-github-io.vercel.app/api";
 
-const textGreen = "Ich bin gerade am Computer. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt bis ca. 30 Minuten.";
-const textYellow = "Derzeit bin ich nicht durchgehend erreichbar. Die voraussichtliche Bearbeitungszeit für Ihre Anfrage beträgt etwa eine bis zwei Stunden.";
-const textRed = "Im Moment habe ich keinen Zugriff auf meine E-Mails. Sie erhalten meine Antwort auf jeden Fall bis morgen früh.";
+const textGreen = "Ich bin gerade am Computer. In der Regel erhalten Sie innerhalb von etwa 30 Minuten eine Antwort.";
+const textYellow = "Derzeit bin ich nicht durchgehend erreichbar. Eine Antwort auf Ihre Anfrage kann etwa ein bis zwei Stunden dauern.";
+const textRed = "Im Moment habe ich keinen Zugriff auf meine E-Mails. Ich melde mich spätestens morgen früh bei Ihnen.";
 
 async function setStatus(mode, text) {
   await fetch(API + "/set-status", {
