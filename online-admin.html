@@ -105,7 +105,7 @@ const textYellow = "Derzeit bin ich nicht durchgehend erreichbar. Eine Antwort a
 const textRed = "Im Moment habe ich keinen Zugriff auf meine E-Mails. Ich melde mich spätestens morgen früh bei Ihnen.";
 
 async function setStatus(mode, text) {
-  await fetch(API + "/set-status", {
+  await fetch(API + "/set-status?t=" + Date.now(), {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -135,7 +135,7 @@ function highlight(mode) {
 }
 
 async function loadCurrentStatus() {
-  const res = await fetch(API + "/status");
+  const res = await fetch(API + "/status?t=" + Date.now());
   const data = await res.json();
 
   document.getElementById("current").innerHTML =
