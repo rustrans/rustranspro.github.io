@@ -42,6 +42,22 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/99175324" style="position:absolute; left:-9999px;" alt="russischen text entziffern" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<style>
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+</style>
 
 </head>
 	<body>
@@ -112,6 +128,7 @@
       height:60px;
       border-radius:50%;
       background:${getColor(data.mode)};
+	  ${data.mode === 'green' ? 'animation: pulse 1.5s infinite;' : ''}
     "></span>
   </div>
   <div style="font-weight:500;">
