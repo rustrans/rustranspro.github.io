@@ -61,19 +61,20 @@
       messagesDiv.appendChild(div);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-      // Уведомление при новом сообщении от посетителя
-      if (msg.sender === 'visitor') {
-        if (Notification.permission === "granted") {
-          new Notification("Новое сообщение от посетителя!", {
+// Уведомление при новом сообщении от посетителя
+if (msg.sender === 'visitor') {
+    if (Notification.permission === "granted") {
+        new Notification("Новое сообщение от посетителя!", {
             body: msg.text.substring(0, 100),
-            icon: "" // можно добавить иконку позже
-          });
-        }
-        // Звуковой сигнал
-        new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3').play().catch(()=>{});
-      }
-    });
-
+        });
+    }
+    
+    // Короткий приятный звук (1 секунда)
+    const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3');
+    audio.volume = 0.6;
+    audio.play().catch(() => {});
+}
+      
     // Отправка ответа от админа
     form.addEventListener('submit', (e) => {
       e.preventDefault();
