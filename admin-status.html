@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - Чат</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    #chat-box-admin {
+      max-width: 760px;
+      margin: 40px auto;
+      background: #fff;
+      border: 1px solid #d0d0d0;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    #messages {
+      max-height: 600px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding-right: 10px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: 14px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    button {
+      padding: 14px 36px;
+      font-size: 17px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #28a745;
+      color: white;
+    }
+    h3 { text-align: center; color: #333; }
+  </style>
+</head>
+<body>
 
+  <h1 style="text-align:center;">👨‍💼 Admin Panel</h1>
+
+  <!-- ЧАТ -->
+  <div id="chat-box-admin">
+    <h3>💬 Чат с посетителями (общий)</h3>
+
+    <div id="messages"></div>
+
+    <textarea id="msg" placeholder="Напишите сообщение..."></textarea>
+
+    <div style="text-align:center; margin-top: 18px;">
+      <button onclick="sendMessage()">Отправить</button>
+    </div>
+  </div>
+
+  <script>
+    const CHAT_API = "https://rustranspro-github-io.vercel.app/api/chat";
+
+    async function loadMessages() {
+      try {
+        const res = await fetch(CHAT_API + "?t=" + Date.now());
+        const messages = await res.json();
+        const box = document.getElementById("messages");
+
+        box.innerHTML = messages.map(m => `
+          <div style="
+            margin-bottom:15px;
+            padding:14px;
+            border-radius:12px;
+            background:${m.author === 'admin' ? '#e6f7e6' : '#f5f5f5'};
+            line-height:1.5;
+            font-size:15px;
+            word-break:break-word;
+          ">
+            <div style="font-weight:bold; margin-bottom:6px; color:${m.author === 'admin' ? '#28a745' : '#444'}">
+              ${m.author === 'admin' ? 'Вы (Admin)' : 'Посетитель'}
+            </div>
+            <div>${m.text}</div>
+          </div>
+        `).join("");
+
+        box.scrollTop = box.scrollHeight;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function sendMessage() {
+      const textarea = document.getElementById("msg");
+      const text = textarea.value.trim();
+      if (!text) return;
+
+      try {
+        await fetch(CHAT_API + "?t=" + Date.now(), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ author: "admin", text })
+        });
+
+        textarea.value = "";
+        loadMessages();
+      } catch (e) {
+        alert("Ошибка отправки: " + e.message);
+      }
+    }
+
+    // Запуск
+    loadMessages();
+    setInterval(() => {
+      if (document.visibilityState === "visible") loadMessages();
+    }, 8000);   // обновление каждые 8 секунд
+
+    window.sendMessage = sendMessage;
+  </script>
+
+</body>
+</html>
