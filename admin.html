@@ -6,7 +6,6 @@
   <title>Admin — Support Chat</title>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
   
   <style>
     * { box-sizing: border-box; }
@@ -18,12 +17,14 @@
       display: flex; 
       flex-direction: column;
       background: #f5f5f5;
+      overflow: hidden;
     }
     header {
       background: #333;
       color: white;
       padding: 12px;
       text-align: center;
+      flex-shrink: 0;
     }
     #messages { 
       flex: 1; 
@@ -40,9 +41,10 @@
     .visitor { background: #e3f2fd; align-self: flex-start; }
     .admin { background: #e8f5e9; align-self: flex-end; margin-left: auto; }
     .input-area {
-      padding: 12px;
+      padding: 12px 12px 20px;
       background: white;
       border-top: 1px solid #ddd;
+      flex-shrink: 0;
     }
     textarea { 
       width: 100%; 
@@ -51,12 +53,13 @@
       border: 1px solid #ccc; 
       border-radius: 8px;
       resize: none;
+      font-size: 16px;
     }
     button { 
       margin-top: 8px;
       width: 100%; 
-      padding: 14px; 
-      font-size: 16px; 
+      padding: 16px; 
+      font-size: 17px; 
       background: #0066ff; 
       color: white; 
       border: none; 
@@ -96,9 +99,21 @@
     const messagesDiv = document.getElementById('messages');
     const form = document.getElementById('form');
 
-    // Разрешение на уведомления
-    Notification.requestPermission();
+    // === Уведомления ===
+    function requestNotificationPermission() {
+      if (Notification.permission === "default") {
+        Notification.requestPermission().then(permission => {
+          console.log("Notification permission:", permission);
+        });
+      }
+    }
 
+    // Запрашиваем разрешение после загрузки
+    window.addEventListener('load', () => {
+      setTimeout(requestNotificationPermission, 1000);
+    });
+
+    // Новые сообщения
     messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
       const msg = snapshot.val();
       const div = document.createElement('div');
@@ -110,13 +125,18 @@
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
       if (msg.sender === 'visitor') {
-        new Notification("Neue Nachricht vom Besucher!", { 
-          body: msg.text.substring(0, 120) 
-        });
+        // Уведомление
+        if (Notification.permission === "granted") {
+          new Notification("Neue Nachricht vom Besucher!", {
+            body: msg.text.substring(0, 120),
+          });
+        }
+        // Звук
         new Audio('https://freesound.org/data/previews/387/387186_7258990-lq.mp3').play().catch(() => {});
       }
     });
 
+    // Отправка
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = document.getElementById('reply').value.trim();
