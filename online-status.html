@@ -155,5 +155,37 @@
 })();
 </script>
 			</div>
-		</div> 
+		</div>
+
+<div id="chat-box" style="
+  margin-top:40px;
+  border-top:1px solid #ccc;
+  padding-top:20px;
+">
+
+<h3>Nachricht senden</h3>
+
+<div id="messages" style="
+  max-width:700px;
+  margin:auto;
+  text-align:left;
+"></div>
+
+<textarea id="msg" style="
+  width:100%;
+  max-width:700px;
+  height:100px;
+  margin-top:20px;
+"></textarea>
+
+<br>
+
+<button onclick="sendMessage()" style="
+  margin-top:10px;
+  padding:10px 20px;
+">
+Senden
+</button>
+
+</div>		
 	</body>
