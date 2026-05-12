@@ -60,42 +60,62 @@
 </style>
 
 </head>
-	<body>
-		<div id="container">
-			<div id="header-left">
-				<div id="header1">
-				<h1>Übersetzungen - Digitalisierung - Layout</h1>
-				</div>
-				<div id="header2">
-					<a href="https://morozov-online.com/index.html" class="button-menu">Startseite</a>
-					<a href="https://morozov-online.com/online-status.html" class="button-menu active">Online-Status</a>
-				</div>
-			</div>
-				<div id="header-right">
-				<p style="height: 22px;"></p>
-				<h4>Dmitry Morozov</h4>
-				</div>			
-			<div id="sidebar-chat">
-			<h3>Kurzanleitung</h3>
-					<p>Auf dieser Seite sehen Sie meinen aktuellen Online-Status sowie eine ungefähre Einschätzung, wann Sie mit einer Antwort per E-Mail rechnen können.</p>
-					<p style="padding-top: 7px;">Bitte beachten Sie, dass es sich nur um <b>eine Orientierung</b> handelt. Die angezeigten Daten können je nach Situation variieren.</p>
-					<p style="padding-top: 7px;">Im Zweifel schreiben Sie mir einfach wie gewohnt eine E-Mail. Ich melde mich so schnell wie möglich zurück.</p>
-			</div>
-<!-- ПРАВАЯ КОЛОНКА -->
-    <div id="right-column">
+<body>
+
+  <div id="container">
+
+    <!-- LEFT HEADER -->
+    <div id="header-left">
+      <div id="header1">
+        <h1>Übersetzungen - Digitalisierung - Layout</h1>
+      </div>
+      <div id="header2">
+        <a href="https://morozov-online.com/index.html" class="button-menu">Startseite</a>
+        <a href="https://morozov-online.com/online-status.html" class="button-menu active">Online-Status</a>
+      </div>
+    </div>
+
+    <!-- RIGHT HEADER -->
+    <div id="header-right">
+      <p style="height: 22px;"></p>
+      <h4>Dmitry Morozov</h4>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar-chat">
+      <h3>Kurzanleitung</h3>
+      <p>Auf dieser Seite sehen Sie meinen aktuellen Online-Status sowie eine ungefähre Einschätzung, wann Sie mit einer Antwort per E-Mail rechnen können.</p>
+      <p style="padding-top: 7px;">Bitte beachten Sie, dass es sich nur um <b>eine Orientierung</b> handelt. Die angezeigten Daten können je nach Situation variieren.</p>
+      <p style="padding-top: 7px;">Im Zweifel schreiben Sie mir einfach wie gewohnt eine E-Mail. Ich melde mich so schnell wie möglich zurück.</p>
+    </div>
+
+    <!-- ПРАВАЯ ЧАСТЬ (главное изменение) -->
+    <div id="main" style="width: 523px; padding: 20px 25px 20px 30px; box-sizing: border-box; float: left;">
 
       <!-- STATUS WIDGET -->
-      <div id="online-status-widget"></div>
+      <div id="online-status-widget" style="margin-bottom: 35px;"></div>
 
       <!-- CHAT -->
-      <div id="chat-box">
-        <h3 style="margin-bottom: 20px; text-align: center;">Nachricht senden</h3>
+      <div id="chat-box" style="
+        background: #fff;
+        border: 1px solid #d0d0d0;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      ">
 
-        <div id="messages"></div>
+        <h3 style="margin-bottom: 22px; text-align:center; color:#333;">Nachricht senden</h3>
+
+        <div id="messages" style="
+          max-height: 380px;
+          overflow-y: auto;
+          margin-bottom: 20px;
+          padding-right: 8px;
+        "></div>
 
         <textarea id="msg" 
           placeholder="Ihre Nachricht..." 
-          style="width:100%; min-height:130px; padding:14px; font-size:16px; border:1px solid #ccc; border-radius:10px; box-sizing:border-box; resize:vertical;"></textarea>
+          style="width:100%; min-height: 130px; padding:14px; font-size:16px; border:1px solid #ccc; border-radius:10px; box-sizing:border-box; resize:vertical;"></textarea>
 
         <div style="text-align:center; margin-top: 18px;">
           <button onclick="sendMessage()" 
@@ -109,104 +129,10 @@
 
   </div>
 
-  <!-- SCRIPT (без изменений, только добавил window.sendMessage) -->
+  <!-- SCRIPT (оставь свой текущий, только убедись, что window.sendMessage объявлен) -->
   <script>
-    (function () {
-      const API = "https://rustranspro-github-io.vercel.app/api";
-      const CHAT_API = "https://rustranspro-github-io.vercel.app/api/chat";
-
-      const container = document.getElementById("online-status-widget");
-
-      function getColor(mode) {
-        if (mode === "green") return "#28a745";
-        if (mode === "yellow") return "#ffc107";
-        if (mode === "red") return "#dc3545";
-        return "gray";
-      }
-
-      function timeAgo(ts) {
-        if (!ts) return "";
-        const diff = Date.now() - ts;
-        const minutes = Math.floor(diff / 60000);
-        const hours = Math.floor(minutes / 60);
-        if (hours > 0) return `${hours} Std. ${minutes % 60} Minuten`;
-        return `${minutes} Minuten`;
-      }
-
-      async function loadStatus() {
-        try {
-          const res = await fetch(API + "/status?t=" + Date.now());
-          const data = await res.json();
-
-          container.innerHTML = `
-            <div style="font-family: Arial, sans-serif; font-size: 20px; color: black; line-height: 1.4;">
-              <div style="text-align:center;">
-                <div style="margin-bottom:12px;">
-                  <span style="display:inline-block; width:60px; height:60px; border-radius:50%; background:${getColor(data.mode)}; 
-                    ${data.mode === 'green' ? 'animation: pulse 1.5s infinite;' : ''}"></span>
-                </div>
-                <div style="font-weight:500;">${data.text}</div>
-              </div>
-              <div style="margin-top:12px; font-size:12px; color:gray;">
-                Aktualisiert: vor ${timeAgo(data.updatedAt)}
-              </div>
-            </div>
-          `;
-        } catch (e) {
-          container.innerText = "Ошибка загрузки";
-        }
-      }
-
-      async function loadMessages() {
-        try {
-          const res = await fetch(CHAT_API + "?t=" + Date.now());
-          const messages = await res.json();
-          const box = document.getElementById("messages");
-
-          box.innerHTML = messages.map(m => `
-            <div style="margin-bottom:15px; padding:14px; border-radius:12px; background:${m.author === 'admin' ? '#eef4ff' : '#f5f5f5'}; line-height:1.5; font-size:15px; word-break:break-word;">
-              <div style="font-weight:bold; margin-bottom:6px; color:${m.author === 'admin' ? '#2457b5' : '#444'}">
-                ${m.author === 'admin' ? 'Admin' : 'Besucher'}
-              </div>
-              <div>${m.text}</div>
-            </div>
-          `).join("");
-
-          box.scrollTop = box.scrollHeight;
-        } catch (e) {
-          console.log(e);
-        }
-      }
-
-      async function sendMessage() {
-        const textarea = document.getElementById("msg");
-        const text = textarea.value.trim();
-        if (!text) return;
-
-        await fetch(CHAT_API + "?t=" + Date.now(), {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ author: "visitor", text })
-        });
-
-        textarea.value = "";
-        loadMessages();
-      }
-
-      window.sendMessage = sendMessage;
-
-      // Init
-      loadStatus();
-      loadMessages();
-
-      setInterval(() => {
-        if (document.visibilityState === "visible") {
-          loadStatus();
-          loadMessages();
-        }
-      }, 30000);
-
-    })();
+    // ... твой весь скрипт ...
+    window.sendMessage = sendMessage;
   </script>
 
 </body>
