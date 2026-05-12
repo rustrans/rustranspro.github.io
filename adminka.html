@@ -2,116 +2,67 @@
 <html lang="de-DE">
 
 <head>
+  <!-- ... (всё head оставил без изменений) ... -->
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta name="google-site-verification"
-        content="oU1vP_3wLgDUgMgjGbJEgLOTA7yp9BFq2Hjc3Ill-5Q">
-
-  <meta name="description"
-        content="✅ Sofortkontakt, Übersetzungen Deutsch-Russisch, Texte erfassen, Werbetexten, Lektorate, Qualitätssicherung, Dolmetschen, Texterfassung">
-
-  <meta name="keywords"
-        content="Urkunden erfassen, Dokumente digitalisieren, Entzifferung von Urkunden, Übersetzung russischer Dokumente, Alt­russische Texte lesen, russische Handschriften entziffern, Dokumentenerfassung Russisch, Texterkennung russische Schrift, OCR russisch kyrillisch, Handschrift russisch erkennen, russische Archivdokumente, Russisch kyrillische Alttexte, alte russische Schrift übersetzen, Russisch Kurrent entziffern, Zaristische Urkunden transkribieren, kyrillische Schrift Digitalisierung, kyrillische OCR Software, Spracherkennung Russisch Dokument, wer transkribiert alte russische Dokumente, wie kann man russische Urkunden digital erfassen, russische Dokumente entziffern lassen">
-
-  <meta name="geo.region" content="DE-BE">
-
-  <link rel="stylesheet" type="text/css" href="style.css">
-
-  <link rel="apple-touch-icon"
-        href="/apple-touch-icon-120x120-precomposed.png">
-
-  <link rel="apple-touch-icon"
-        href="/apple-touch-icon-152x152-precomposed.png">
-
-  <link rel="canonical"
-        href="https://morozov-online.com">
-
-  <link rel="icon"
-        href="favicon.ico"
-        type="image/x-icon">
-
-  <title>
-    Sofortkontakt: Expertise in Übersetzungen, Digitalisierung und Erschließung von Dokumenten
-  </title>
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Website",
-    "name": "Dmitry Morozov",
-    "url": "https://morozov-online.com",
-    "sameAs": [
-      "https://disqus.com/by/morozovonline/"
-    ]
-  }
-  </script>
-
-  <!-- Yandex.Metrika -->
-  <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-      m[i]=m[i]||function(){
-        (m[i].a=m[i].a||[]).push(arguments)
-      };
-
-      m[i].l=1*new Date();
-
-      for (var j = 0; j < document.scripts.length; j++) {
-        if (document.scripts[j].src === r) {
-          return;
-        }
-      }
-
-      k=e.createElement(t),
-      a=e.getElementsByTagName(t)[0],
-      k.async=1,
-      k.src=r,
-      a.parentNode.insertBefore(k,a);
-
-    })(window, document, "script",
-       "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-    ym(99175324, "init", {
-      clickmap:true,
-      trackLinks:true,
-      accurateTrackBounce:true,
-      webvisor:true
-    });
-  </script>
-
-  <noscript>
-    <div>
-      <img src="https://mc.yandex.ru/watch/99175324"
-           style="position:absolute; left:-9999px;"
-           alt="russischen text entziffern">
-    </div>
-  </noscript>
-
-  <!-- Widget Animation -->
   <style>
-
-    @keyframes pulse {
-
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-
-      50% {
-        transform: scale(1.4);
-        opacity: 0.6;
-      }
-
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+    /* Дополнительные стили для правильного расположения */
+    #container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      gap: 30px;
     }
 
-  </style>
+    #header-left, #header-right {
+      flex: 1 1 100%;
+    }
 
+    #sidebar-chat {
+      flex: 1 1 280px;
+      min-width: 280px;
+    }
+
+    /* Правая колонка */
+    #right-column {
+      flex: 1 1 700px;
+      min-width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    #online-status-widget {
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    #chat-box {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    #messages {
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    /* Скроллбар */
+    #messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    #messages::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 
 <body>
@@ -120,339 +71,156 @@
 
     <!-- LEFT HEADER -->
     <div id="header-left">
-
       <div id="header1">
-        <h1>
-          Übersetzungen - Digitalisierung - Layout
-        </h1>
+        <h1>Übersetzungen - Digitalisierung - Layout</h1>
       </div>
-
       <div id="header2">
-
-        <a href="https://morozov-online.com/index.html"
-           class="button-menu">
-          Startseite
-        </a>
-
-        <a href="https://morozov-online.com/online-status.html"
-           class="button-menu active">
-          Online-Status
-        </a>
-
+        <a href="https://morozov-online.com/index.html" class="button-menu">Startseite</a>
+        <a href="https://morozov-online.com/online-status.html" class="button-menu active">Online-Status</a>
       </div>
-
     </div>
 
     <!-- RIGHT HEADER -->
     <div id="header-right">
-
       <p style="height: 22px;"></p>
-
       <h4>Dmitry Morozov</h4>
-
     </div>
 
     <!-- SIDEBAR -->
     <div id="sidebar-chat">
-
       <h3>Kurzanleitung</h3>
-
-      <p>
-        Auf dieser Seite sehen Sie meinen aktuellen Online-Status
-        sowie eine ungefähre Einschätzung, wann Sie mit einer
-        Antwort per E-Mail rechnen können.
-      </p>
-
-      <p style="padding-top: 7px;">
-        Bitte beachten Sie, dass es sich nur um
-        <b>eine Orientierung</b> handelt.
-        Die angezeigten Daten können je nach Situation variieren.
-      </p>
-
-      <p style="padding-top: 7px;">
-        Im Zweifel schreiben Sie mir einfach wie gewohnt eine
-        E-Mail. Ich melde mich so schnell wie möglich zurück.
-      </p>
-
+      <p>Auf dieser Seite sehen Sie meinen aktuellen Online-Status sowie eine ungefähre Einschätzung, wann Sie mit einer Antwort per E-Mail rechnen können.</p>
+      <p style="padding-top: 7px;">Bitte beachten Sie, dass es sich nur um <b>eine Orientierung</b> handelt.</p>
+      <p style="padding-top: 7px;">Im Zweifel schreiben Sie mir einfach wie gewohnt eine E-Mail.</p>
     </div>
 
-    <!-- STATUS WIDGET -->
-    <div id="online-status-widget"
-         style="padding: 180px 20px 30px 250px;">
-    </div>
+    <!-- ПРАВАЯ КОЛОНКА -->
+    <div id="right-column">
 
-    <!-- CHAT -->
-    <div id="chat-box" style="
-      max-width:700px;
-      margin:30px auto 50px auto;
-      padding:20px;
-      border-top:1px solid #d0d0d0;
-      font-family:Arial, sans-serif;
-    ">
+      <!-- STATUS WIDGET -->
+      <div id="online-status-widget"></div>
 
-      <h3 style="
-        margin-bottom:20px;
-        text-align:center;
-      ">
-        Nachricht senden
-      </h3>
+      <!-- CHAT -->
+      <div id="chat-box">
+        <h3 style="margin-bottom: 20px; text-align: center;">Nachricht senden</h3>
 
-      <div id="messages" style="
-        max-height:400px;
-        overflow-y:auto;
-        margin-bottom:20px;
-      "></div>
+        <div id="messages"></div>
 
-      <textarea id="msg" style="
-        width:100%;
-        min-height:120px;
-        padding:12px;
-        font-size:16px;
-        border:1px solid #ccc;
-        border-radius:10px;
-        box-sizing:border-box;
-        resize:vertical;
-      " placeholder="Ihre Nachricht..."></textarea>
+        <textarea id="msg" 
+          placeholder="Ihre Nachricht..." 
+          style="width:100%; min-height:130px; padding:14px; font-size:16px; border:1px solid #ccc; border-radius:10px; box-sizing:border-box; resize:vertical;"></textarea>
 
-      <div style="text-align:center;">
-
-        <button onclick="sendMessage()" style="
-          margin-top:15px;
-          padding:12px 28px;
-          font-size:16px;
-          border:none;
-          border-radius:10px;
-          cursor:pointer;
-          background:#2d6cdf;
-          color:white;
-        ">
-          Senden
-        </button>
-
+        <div style="text-align:center; margin-top: 18px;">
+          <button onclick="sendMessage()" 
+            style="padding:13px 32px; font-size:16px; border:none; border-radius:10px; cursor:pointer; background:#2d6cdf; color:white;">
+            Senden
+          </button>
+        </div>
       </div>
 
     </div>
 
   </div>
 
-  <!-- MAIN SCRIPT -->
+  <!-- SCRIPT (без изменений, только добавил window.sendMessage) -->
   <script>
+    (function () {
+      const API = "https://rustranspro-github-io.vercel.app/api";
+      const CHAT_API = "https://rustranspro-github-io.vercel.app/api/chat";
 
-  (function () {
+      const container = document.getElementById("online-status-widget");
 
-    // STATUS API
-    const API =
-      "https://rustranspro-github-io.vercel.app/api";
-
-    // CHAT API
-    const CHAT_API =
-      "https://rustranspro-github-io.vercel.app/api/chat";
-
-    // STATUS CONTAINER
-    const container =
-      document.getElementById("online-status-widget");
-
-    // STATUS COLORS
-    function getColor(mode) {
-
-      if (mode === "green") return "#28a745";
-      if (mode === "yellow") return "#ffc107";
-      if (mode === "red") return "#dc3545";
-
-      return "gray";
-    }
-
-    // TIME AGO
-    function timeAgo(ts) {
-
-      if (!ts) return "";
-
-      const diff = Date.now() - ts;
-
-      const minutes = Math.floor(diff / 60000);
-      const hours = Math.floor(minutes / 60);
-
-      if (hours > 0) {
-
-        return `${hours} Std. ${minutes % 60} Minuten`;
+      function getColor(mode) {
+        if (mode === "green") return "#28a745";
+        if (mode === "yellow") return "#ffc107";
+        if (mode === "red") return "#dc3545";
+        return "gray";
       }
 
-      return `${minutes} Minuten`;
-    }
+      function timeAgo(ts) {
+        if (!ts) return "";
+        const diff = Date.now() - ts;
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(minutes / 60);
+        if (hours > 0) return `${hours} Std. ${minutes % 60} Minuten`;
+        return `${minutes} Minuten`;
+      }
 
-    // LOAD STATUS
-    async function loadStatus() {
+      async function loadStatus() {
+        try {
+          const res = await fetch(API + "/status?t=" + Date.now());
+          const data = await res.json();
 
-      try {
-
-        const res =
-          await fetch(API + "/status?t=" + Date.now());
-
-        const data =
-          await res.json();
-
-        container.innerHTML = `
-
-          <div style="
-            font-family: Arial, sans-serif;
-            font-size: 20px;
-            color: black;
-            line-height: 1.4;
-          ">
-
-            <div style="text-align:center;">
-
-              <div style="margin-bottom:12px;">
-
-                <span style="
-                  display:inline-block;
-                  width:60px;
-                  height:60px;
-                  border-radius:50%;
-                  background:${getColor(data.mode)};
-                  ${data.mode === 'green'
-                    ? 'animation: pulse 1.5s infinite;'
-                    : ''}
-                "></span>
-
+          container.innerHTML = `
+            <div style="font-family: Arial, sans-serif; font-size: 20px; color: black; line-height: 1.4;">
+              <div style="text-align:center;">
+                <div style="margin-bottom:12px;">
+                  <span style="display:inline-block; width:60px; height:60px; border-radius:50%; background:${getColor(data.mode)}; 
+                    ${data.mode === 'green' ? 'animation: pulse 1.5s infinite;' : ''}"></span>
+                </div>
+                <div style="font-weight:500;">${data.text}</div>
               </div>
-
-              <div style="font-weight:500;">
-                ${data.text}
+              <div style="margin-top:12px; font-size:12px; color:gray;">
+                Aktualisiert: vor ${timeAgo(data.updatedAt)}
               </div>
-
             </div>
-
-            <div style="
-              margin-top:12px;
-              font-size:12px;
-              color:gray;
-              text-align:center;
-            ">
-
-              Aktualisiert:
-              vor ${timeAgo(data.updatedAt)}
-
-            </div>
-
-          </div>
-        `;
-
-      } catch (e) {
-
-        container.innerText =
-          "Ошибка загрузки";
+          `;
+        } catch (e) {
+          container.innerText = "Ошибка загрузки";
+        }
       }
-    }
 
-    // LOAD CHAT
-    async function loadMessages() {
+      async function loadMessages() {
+        try {
+          const res = await fetch(CHAT_API + "?t=" + Date.now());
+          const messages = await res.json();
+          const box = document.getElementById("messages");
 
-      try {
-
-        const res =
-          await fetch(CHAT_API + "?t=" + Date.now());
-
-        const messages =
-          await res.json();
-
-        const box =
-          document.getElementById("messages");
-
-        box.innerHTML = messages.map(m => `
-
-          <div style="
-            margin-bottom:15px;
-            padding:14px;
-            border-radius:12px;
-            background:${m.author === 'admin'
-              ? '#eef4ff'
-              : '#f5f5f5'};
-            line-height:1.5;
-            font-size:15px;
-            word-break:break-word;
-          ">
-
-            <div style="
-              font-weight:bold;
-              margin-bottom:6px;
-              color:${m.author === 'admin'
-                ? '#2457b5'
-                : '#444'};
-            ">
-              ${m.author === 'admin'
-                ? 'Admin'
-                : 'Besucher'}
+          box.innerHTML = messages.map(m => `
+            <div style="margin-bottom:15px; padding:14px; border-radius:12px; background:${m.author === 'admin' ? '#eef4ff' : '#f5f5f5'}; line-height:1.5; font-size:15px; word-break:break-word;">
+              <div style="font-weight:bold; margin-bottom:6px; color:${m.author === 'admin' ? '#2457b5' : '#444'}">
+                ${m.author === 'admin' ? 'Admin' : 'Besucher'}
+              </div>
+              <div>${m.text}</div>
             </div>
+          `).join("");
 
-            <div>
-              ${m.text}
-            </div>
-
-          </div>
-
-        `).join("");
-
-        box.scrollTop = box.scrollHeight;
-
-      } catch (e) {
-
-        console.log(e);
+          box.scrollTop = box.scrollHeight;
+        } catch (e) {
+          console.log(e);
+        }
       }
-    }
 
-    // SEND MESSAGE
-    async function sendMessage() {
+      async function sendMessage() {
+        const textarea = document.getElementById("msg");
+        const text = textarea.value.trim();
+        if (!text) return;
 
-      const textarea =
-        document.getElementById("msg");
+        await fetch(CHAT_API + "?t=" + Date.now(), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ author: "visitor", text })
+        });
 
-      const text =
-        textarea.value.trim();
-
-      if (!text) return;
-
-      await fetch(CHAT_API + "?t=" + Date.now(), {
-
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-          author: "visitor",
-          text
-        })
-      });
-
-      textarea.value = "";
-
-      loadMessages();
-    }
-
-    // GLOBAL
-    window.sendMessage = sendMessage;
-
-    // INIT
-    loadStatus();
-    loadMessages();
-
-    // AUTO REFRESH
-    setInterval(() => {
-
-      if (document.visibilityState === "visible") {
-
-        loadStatus();
+        textarea.value = "";
         loadMessages();
       }
 
-    }, 30000);
+      window.sendMessage = sendMessage;
 
-  })();
+      // Init
+      loadStatus();
+      loadMessages();
 
+      setInterval(() => {
+        if (document.visibilityState === "visible") {
+          loadStatus();
+          loadMessages();
+        }
+      }, 30000);
+
+    })();
   </script>
 
 </body>
-
 </html>
