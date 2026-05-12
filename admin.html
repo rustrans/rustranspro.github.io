@@ -3,73 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Support Chat</title>
+  <title>Admin — Support Chat</title>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
   
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    #messages { height: 70vh; overflow-y: scroll; border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; background: #f9f9f9; }
-    .message { margin: 12px 0; padding: 10px; border-radius: 8px; }
-    .visitor { background: #e3f2fd; }
-    .admin { background: #e8f5e9; margin-left: 20%; }
-    textarea { width: 100%; padding: 10px; margin: 5px 0; }
-    button { padding: 12px 24px; font-size: 16px; }
+    * { box-sizing: border-box; }
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 0; 
+      padding: 0; 
+      height: 100vh; 
+      display: flex; 
+      flex-direction: column;
+      background: #f5f5f5;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 12px;
+      text-align: center;
+    }
+    #messages { 
+      flex: 1; 
+      overflow-y: auto; 
+      padding: 15px; 
+      background: #f9f9f9;
+    }
+    .message { 
+      margin: 12px 0; 
+      padding: 12px; 
+      border-radius: 10px; 
+      max-width: 85%;
+    }
+    .visitor { background: #e3f2fd; align-self: flex-start; }
+    .admin { background: #e8f5e9; align-self: flex-end; margin-left: auto; }
+    .input-area {
+      padding: 12px;
+      background: white;
+      border-top: 1px solid #ddd;
+    }
+    textarea { 
+      width: 100%; 
+      min-height: 70px; 
+      padding: 10px; 
+      border: 1px solid #ccc; 
+      border-radius: 8px;
+      resize: none;
+    }
+    button { 
+      margin-top: 8px;
+      width: 100%; 
+      padding: 14px; 
+      font-size: 16px; 
+      background: #0066ff; 
+      color: white; 
+      border: none; 
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
-  <h1>Admin — Support Chat</h1>
-  <p><small>Push-Benachrichtigungen sollten funktionieren</small></p>
+  <header>
+    <h2>Admin — Support Chat</h2>
+  </header>
   
   <div id="messages"></div>
   
-  <form id="form">
-    <textarea id="reply" rows="3" placeholder="Antwort schreiben..."></textarea><br>
-    <button type="submit">Antwort senden</button>
-  </form>
+  <div class="input-area">
+    <form id="form">
+      <textarea id="reply" placeholder="Antwort schreiben..."></textarea>
+      <button type="submit">Antwort senden</button>
+    </form>
+  </div>
 
-<script>
-  const firebaseConfig = { /* твой config */ };
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9Tiws2tf1rYJuJ83hMJ6q1owJ2iHbMR8",
+      authDomain: "my-simple-chat-b59b9.firebaseapp.com",
+      databaseURL: "https://my-simple-chat-b59b9-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "my-simple-chat-b59b9",
+      storageBucket: "my-simple-chat-b59b9.firebasestorage.app",
+      messagingSenderId: "106669535181",
+      appId: "1:106669535181:web:678e89c79b063bb03c5e84"
+    };
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-  const messagesRef = db.ref('messages');
-  const messaging = firebase.messaging();
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const messagesRef = db.ref('messages');
 
-  // --- Запрос разрешений ---
-  async function requestPermission() {
-    try {
-      const permission = await Notification.requestPermission();
-      if (permission === "granted") {
-        const token = await messaging.getToken();
-        console.log("FCM Token (сохрани его):", token);
+    const messagesDiv = document.getElementById('messages');
+    const form = document.getElementById('form');
+
+    // Разрешение на уведомления
+    Notification.requestPermission();
+
+    messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
+      const msg = snapshot.val();
+      const div = document.createElement('div');
+      div.className = `message ${msg.sender}`;
+      div.innerHTML = `<strong>${msg.sender === 'admin' ? 'Sie (Admin)' : 'Besucher'}:</strong><br>
+                       ${msg.text}<br>
+                       <small>${new Date(msg.timestamp).toLocaleString('de-DE')}</small>`;
+      messagesDiv.appendChild(div);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      if (msg.sender === 'visitor') {
+        new Notification("Neue Nachricht vom Besucher!", { 
+          body: msg.text.substring(0, 120) 
+        });
+        new Audio('https://freesound.org/data/previews/387/387186_7258990-lq.mp3').play().catch(() => {});
       }
-    } catch (err) {
-      console.log("Permission error", err);
-    }
-  }
+    });
 
-  requestPermission();
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = document.getElementById('reply').value.trim();
+      if (!text) return;
 
-  // --- Новые сообщения ---
-  messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
-    const msg = snapshot.val();
-    const div = document.createElement('div');
-    div.className = `message ${msg.sender}`;
-    div.innerHTML = `<strong>${msg.sender === 'admin' ? 'Sie (Admin)' : 'Besucher'}:</strong><br>
-                     ${msg.text}<br>
-                     <small>${new Date(msg.timestamp).toLocaleString('de-DE')}</small>`;
-    messagesDiv.appendChild(div);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      messagesRef.push({
+        sender: 'admin',
+        text: text,
+        timestamp: Date.now()
+      });
 
-    if (msg.sender === 'visitor') {
-      new Notification("Neue Nachricht vom Besucher!", { body: msg.text.substring(0, 120) });
-      new Audio('https://freesound.org/data/previews/387/387186_7258990-lq.mp3').play().catch(() => {});
-    }
-  });
-
-  // ... (отправка ответа остаётся та же)
-</script>
+      document.getElementById('reply').value = '';
+    });
+  </script>
 </body>
 </html>
