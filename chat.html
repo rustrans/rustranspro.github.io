@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Чат с поддержкой</title>
+  <title>Support-Chat</title>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
   <style>
@@ -15,17 +15,17 @@
   </style>
 </head>
 <body>
-  <h1>Чат с поддержкой</h1>
+  <h1>Support-Chat</h1>
   
   <div id="messages"></div>
   
   <form id="form">
-    <textarea id="message" rows="3" style="width:100%" placeholder="Напишите ваше сообщение..."></textarea><br><br>
-    <button type="submit">Отправить</button>
+    <textarea id="message" rows="3" style="width:100%" placeholder="Schreiben Sie Ihre Nachricht..."></textarea><br><br>
+    <button type="submit">Senden</button>
   </form>
 
   <script>
-    const firebaseConfig = {
+    const firebaseConfig = { /* ваш config остаётся тот же */ 
       apiKey: "AIzaSyD9Tiws2tf1rYJuJ83hMJ6q1owJ2iHbMR8",
       authDomain: "my-simple-chat-b59b9.firebaseapp.com",
       databaseURL: "https://my-simple-chat-b59b9-default-rtdb.europe-west1.firebasedatabase.app",
@@ -42,18 +42,16 @@
     const messagesDiv = document.getElementById('messages');
     const form = document.getElementById('form');
 
-    // Загрузка и отображение сообщений
     messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
       const msg = snapshot.val();
       const div = document.createElement('div');
       div.className = `message ${msg.sender}`;
-      div.innerHTML = `<strong>${msg.sender === 'admin' ? 'Админ' : 'Вы'}:</strong><br>${msg.text}<br>
-                       <small>${new Date(msg.timestamp).toLocaleTimeString()}</small>`;
+      div.innerHTML = `<strong>${msg.sender === 'admin' ? 'Support' : 'Sie'}:</strong><br>${msg.text}<br>
+                       <small>${new Date(msg.timestamp).toLocaleTimeString('de-DE')}</small>`;
       messagesDiv.appendChild(div);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     });
 
-    // Отправка сообщения
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = document.getElementById('message').value.trim();
