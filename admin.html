@@ -29,63 +29,47 @@
     <button type="submit">Antwort senden</button>
   </form>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyD9Tiws2tf1rYJuJ83hMJ6q1owJ2iHbMR8",
-      authDomain: "my-simple-chat-b59b9.firebaseapp.com",
-      databaseURL: "https://my-simple-chat-b59b9-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "my-simple-chat-b59b9",
-      storageBucket: "my-simple-chat-b59b9.firebasestorage.app",
-      messagingSenderId: "106669535181",
-      appId: "1:106669535181:web:678e89c79b063bb03c5e84"
-    };
+<script>
+  const firebaseConfig = { /* твой config */ };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const messagesRef = db.ref('messages');
-    const messaging = firebase.messaging();
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const messagesRef = db.ref('messages');
+  const messaging = firebase.messaging();
 
-    const messagesDiv = document.getElementById('messages');
-    const form = document.getElementById('form');
-
-    async function requestPermission() {
-      try {
-        await Notification.requestPermission();
-      } catch (e) {}
-    }
-    requestPermission();
-
-    messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
-      const msg = snapshot.val();
-      const div = document.createElement('div');
-      div.className = `message ${msg.sender}`;
-      div.innerHTML = `<strong>${msg.sender === 'admin' ? 'Sie (Admin)' : 'Besucher'}:</strong><br>
-                       ${msg.text}<br>
-                       <small>${new Date(msg.timestamp).toLocaleString('de-DE')}</small>`;
-      messagesDiv.appendChild(div);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-      if (msg.sender === 'visitor') {
-        new Notification("Neue Nachricht vom Besucher!", {
-          body: msg.text.substring(0, 120),
-        });
-        new Audio('https://freesound.org/data/previews/387/387186_7258990-lq.mp3').play().catch(() => {});
+  // --- Запрос разрешений ---
+  async function requestPermission() {
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission === "granted") {
+        const token = await messaging.getToken();
+        console.log("FCM Token (сохрани его):", token);
       }
-    });
+    } catch (err) {
+      console.log("Permission error", err);
+    }
+  }
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const text = document.getElementById('reply').value.trim();
-      if (!text) return;
+  requestPermission();
 
-      messagesRef.push({
-        sender: 'admin',
-        text: text,
-        timestamp: Date.now()
-      });
+  // --- Новые сообщения ---
+  messagesRef.orderByChild('timestamp').on('child_added', (snapshot) => {
+    const msg = snapshot.val();
+    const div = document.createElement('div');
+    div.className = `message ${msg.sender}`;
+    div.innerHTML = `<strong>${msg.sender === 'admin' ? 'Sie (Admin)' : 'Besucher'}:</strong><br>
+                     ${msg.text}<br>
+                     <small>${new Date(msg.timestamp).toLocaleString('de-DE')}</small>`;
+    messagesDiv.appendChild(div);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-      document.getElementById('reply').value = '';
-    });
-  </script>
+    if (msg.sender === 'visitor') {
+      new Notification("Neue Nachricht vom Besucher!", { body: msg.text.substring(0, 120) });
+      new Audio('https://freesound.org/data/previews/387/387186_7258990-lq.mp3').play().catch(() => {});
+    }
+  });
+
+  // ... (отправка ответа остаётся та же)
+</script>
 </body>
 </html>
