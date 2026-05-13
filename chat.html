@@ -1,3 +1,222 @@
-<script>
-window.location.href = "https://morozov-online.com/online-status.html";
-</script>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Support-Chat</title>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+    h1 {
+      font-size: 22px;
+      margin: 8px 0 12px;
+    }
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      background: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      min-height: 300px;
+    }
+    .message {
+      margin: 10px 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      max-width: 85%;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      line-height: 1.35;
+    }
+    .visitor {
+      background: #e3f2fd;
+      margin-left: auto;
+      text-align: right;
+    }
+    .admin {
+      background: #f0f0f0;
+      margin-right: auto;
+      text-align: left;
+    }
+    .meta {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      color: #666;
+    }
+    form {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      resize: vertical;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+    }
+    button {
+      padding: 14px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #0066ff;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #8fb3ff;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Support-Chat</h1>
+
+  <div id="messages"></div>
+
+  <form id="form">
+    <textarea id="message" rows="3" placeholder="Schreiben Sie Ihre Nachricht..."></textarea>
+    <button type="submit" id="sendBtn">Senden</button>
+  </form>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD9Tiws2tf1rYJuJ83hMJ6q1owJ2iHbMR8",
+      authDomain: "my-simple-chat-b59b9.firebaseapp.com",
+      databaseURL: "https://my-simple-chat-b59b9-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "my-simple-chat-b59b9",
+      storageBucket: "my-simple-chat-b59b9.firebasestorage.app",
+      messagingSenderId: "106669535181",
+      appId: "1:106669535181:web:678e89c79b063bb03c5e84"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    const db = firebase.database();
+    const messagesRef = db.ref('messages');
+    const query = messagesRef.orderByChild('timestamp').limitToLast(200);
+
+    const messagesDiv = document.getElementById('messages');
+    const form = document.getElementById('form');
+    const input = document.getElementById('message');
+    const sendBtn = document.getElementById('sendBtn');
+
+    const renderedKeys = new Set();
+
+    const visitorIdKey = 'supportChatVisitorId';
+    let visitorId = localStorage.getItem(visitorIdKey);
+    if (!visitorId) {
+      visitorId = 'v_' + Math.random().toString(36).slice(2, 10);
+      localStorage.setItem(visitorIdKey, visitorId);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function renderMessage(msg) {
+      const div = document.createElement('div');
+      div.className = `message ${msg.sender === 'admin' ? 'admin' : 'visitor'}`;
+
+      const title = document.createElement('strong');
+      title.textContent = msg.sender === 'admin' ? 'Support' : 'Sie';
+
+      const text = document.createElement('div');
+      text.textContent = msg.text || '';
+
+      const meta = document.createElement('span');
+      meta.className = 'meta';
+      meta.textContent = new Date(msg.timestamp || Date.now()).toLocaleTimeString('de-DE', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+      div.appendChild(title);
+      div.appendChild(document.createElement('br'));
+      div.appendChild(text);
+      div.appendChild(meta);
+
+      messagesDiv.appendChild(div);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function onMessage(snapshot) {
+      if (renderedKeys.has(snapshot.key)) return;
+      renderedKeys.add(snapshot.key);
+
+      const msg = snapshot.val();
+      if (!msg || !msg.text) return;
+
+      renderMessage(msg);
+    }
+
+    // Первичная загрузка, потом live-слушатель
+    query.once('value').then((snapshot) => {
+      snapshot.forEach((child) => onMessage(child));
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      query.on('child_added', (snap) => {
+        onMessage(snap);
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const text = input.value.trim();
+      if (!text) return;
+
+      sendBtn.disabled = true;
+
+      try {
+        await messagesRef.push({
+          sender: 'visitor',
+          text,
+          visitorId,
+          timestamp: Date.now()
+        });
+
+        input.value = '';
+        input.focus();
+      } catch (err) {
+        alert('Fehler beim Senden der Nachricht.');
+        console.error(err);
+      } finally {
+        sendBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
