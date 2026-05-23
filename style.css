@@ -162,10 +162,12 @@ color: #000000;
 }
 
 .scroll-indicator {
-    position: absolute;
+    position: fixed;
     right: 15px;
     bottom: 25px;
-
+    right: calc((100vw - 760px) / 2 + 15px);
+    bottom: 25px;    /* Отступ снизу от окна браузера */
+   
     width: 42px;
     height: 42px;
     border: 1px solid #000;
@@ -179,7 +181,7 @@ color: #000000;
     font-size: 20px;
     font-family: Arial, sans-serif;
     cursor: pointer;
-    z-index: 1000;      /* достаточно высокого значения */
+    z-index: 99999;      /* достаточно высокого значения */
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     transition: all 0.25s ease;
     
