@@ -1,1 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сравнение документов</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: white;
+            padding: 25px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .header-content h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .header-content p {
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 0 20px;
+            max-width: 100%;
+            height: calc(100vh - 140px);
+        }
+
+        .panel {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .content {
+            flex: 1;
+            padding: 15px;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: #fafafa;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            background: white;
+        }
+
+        .word-content {
+            width: 100%;
+            max-width: 794px; /* ~A4 width at 96dpi */
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            padding: 40px 50px;
+            min-height: 100%;
+        }
+
+        .upload-area {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #106ebe;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1 id="title">Сравнение оригинала и обработанного документа</h1>
+            <p id="description">Загрузите изображения и Word-файл для сравнения</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Левая панель — JPG -->
+        <div class="panel">
+            <div class="panel-header">Оригинал (JPG)</div>
+            <div class="upload-area">
+                <input type="file" id="jpgInput" accept="image/jpeg,image/png" style="display:none;">
+                <button onclick="document.getElementById('jpgInput').click()">Загрузить JPG</button>
+            </div>
+            <div class="content" id="jpgContainer">
+                <img id="jpgImage" src="https://via.placeholder.com/794x1123/eeeeee/666666?text=Оригинал+документа+A4" alt="Оригинал">
+            </div>
+        </div>
+
+        <!-- Правая панель — Word -->
+        <div class="panel">
+            <div class="panel-header">Обработанный документ (Word)</div>
+            <div class="upload-area">
+                <input type="file" id="docxInput" accept=".docx" style="display:none;">
+                <button onclick="document.getElementById('docxInput').click()">Загрузить DOCX</button>
+            </div>
+            <div class="content" id="wordContainer">
+                <div class="word-content" id="wordContent">
+                    <p style="color:#888; text-align:center; margin-top:100px;">
+                        Загрузите .docx файл для просмотра
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Загрузка JPG
+        document.getElementById('jpgInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('jpgImage').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Загрузка и конвертация DOCX
+        document.getElementById('docxInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                mammoth.convertToHtml({arrayBuffer: event.target.result})
+                    .then(result => {
+                        document.getElementById('wordContent').innerHTML = result.value;
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        document.getElementById('wordContent').innerHTML = 
+                            `<p style="color:red;">Ошибка при обработке файла Word</p>`;
+                    });
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    </script>
+
+</body>
+</html>
