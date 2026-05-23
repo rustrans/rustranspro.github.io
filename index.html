@@ -163,6 +163,16 @@
 				</div>
 			</div>
 	</div>
+	    <script>
+    const indicator = document.getElementById('scrollIndicator');
+
+    indicator.addEventListener('click', () => {
+        window.scrollBy({
+            top: window.innerHeight * 0.9,
+            behavior: 'smooth'
+        });
+    });
+    </script>
 </body>
 </html>
 
