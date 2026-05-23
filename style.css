@@ -166,7 +166,7 @@ color: #000000;
     right: 15px;
     bottom: 25px;
     right: calc((100vw - 760px) / 2 + 15px);
-    bottom: 25px;    /* Отступ снизу от окна браузера */
+    bottom: 75px;    /* Отступ снизу от окна браузера */
    
     width: 42px;
     height: 42px;
