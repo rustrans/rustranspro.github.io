@@ -57,6 +57,11 @@
             height: auto;
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
+        .error {
+            color: red;
+            padding: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -70,7 +75,7 @@
         <div class="panel">
             <div class="panel-header">Original-Scan (JPG)</div>
             <div class="content">
-                <img src="original-scan.jpg" alt="Original">
+                <img src="original-scan.jpg" alt="Original" onerror="this.outerHTML='<div class=\'error\'>❌ Файл original-scan.jpg не найден</div>'">
             </div>
         </div>
 
@@ -78,7 +83,8 @@
         <div class="panel">
             <div class="panel-header">Verarbeitetes Dokument (JPG)</div>
             <div class="content">
-                <img src="verarbeitetes-dokument.jpg" alt="Verarbeitet">
+                <img src="verarbeitetes-dokument.jpg" alt="Verarbeitet" 
+                     onerror="this.outerHTML='<div class=\'error\'>❌ Файл verarbeitetes-dokument.jpg не найден.<br>Проверьте имя и расположение файла.</div>'">
             </div>
         </div>
     </div>
