@@ -163,16 +163,21 @@
 				</div>
 			</div>
 	</div>
-	    <script>
-    const indicator = document.getElementById('scrollIndicator');
-
-    indicator.addEventListener('click', () => {
-        window.scrollBy({
-            top: window.innerHeight * 0.9,
-            behavior: 'smooth'
-        });
-    });
-    </script>
+		<script>
+		const indicator = document.getElementById('scrollIndicator');
+		const scrollBox = document.querySelector('.box-scroll');
+		
+		indicator.innerHTML = '↓';
+		
+		indicator.addEventListener('click', () => {
+		
+		    scrollBox.scrollBy({
+		        top: scrollBox.clientHeight * 0.9,
+		        behavior: 'smooth'
+		    });
+		
+		});
+		</script>
 </body>
 </html>
 
