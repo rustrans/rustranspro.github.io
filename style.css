@@ -101,7 +101,7 @@ border-bottom: 4px solid grey;
 }
 #sidebar {
 width: 190px;
-border-right: 5px solid grey;
+border-right: 1px solid grey;
 float: left;
 padding-bottom: 20px;
 padding-top: 20px;
@@ -166,7 +166,7 @@ color: #000000;
 
 .scroll-indicator {
     position: fixed;
-    right: 15px;
+    right: 10px;
     bottom: 25px;
     right: calc((100vw - 760px) / 2 + 15px);
     bottom: 120px;    /* Отступ снизу от окна браузера */
