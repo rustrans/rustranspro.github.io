@@ -31,6 +31,7 @@ width: 760px;
 border: 3px solid #363636;
 height: 610px;
 margin: 0 auto;
+overflow: hidden;
 color: white;
 }
 h1 {
@@ -95,6 +96,7 @@ overflow: hidden;
 width: 255px;
 height: 69px;
 background-color: #363636;
+margin-right: -1px;
 float: left;
 border-left: 5px solid grey;
 border-bottom: 4px solid grey;
