@@ -78,7 +78,7 @@ padding-left: 30px;
 }
 #header-left {
 width: 500px;
-height: 71px;
+height: 70px;
 background-color: #363636;
 float: left;
 }
@@ -89,7 +89,7 @@ vertical-align: middle;
 padding-left: 10px;
 }
 #header2 {
-height: 27px;
+height: 30px;
 padding-left: 10px;
 border-top: 2px solid grey;
 border-bottom: 5px solid grey;
