@@ -1,3 +1,6 @@
+*, *::before, *::after {
+    box-sizing: border-box; /* ← НОВОЕ: границы и padding внутри ширины */
+}
 * { 
 margin: 0; 
 padding: 0; 
@@ -93,8 +96,8 @@ border-bottom: 5px solid grey;
 overflow: hidden;
 }
 #header-right {
-width: 255px;
-height: 69px;
+width: 260px;
+height: 70px;
 background-color: #363636;
 margin-right: -1px;
 float: left;
