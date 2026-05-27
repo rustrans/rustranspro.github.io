@@ -100,9 +100,9 @@ textarea {
 <script>
 const API = "https://rustranspro-github-io.vercel.app/api";
 
-const textGreen = "Ich bin gerade am Computer und antworte auf Ihre E-Mail in der Regel innerhalb einer Stunde.";
+const textGreen = "Ich bin online und antworte auf Ihre E-Mail in der Regel innerhalb einer Stunde.";
 const textYellow = "Derzeit bin ich nicht durchgehend erreichbar. Meine Antwort auf Ihre E-Mail kommt innerhalb von drei Stunden.";
-const textRed = "Im Moment habe ich keinen Zugriff auf meine E-Mails. Es kann mehrere Stunden dauern, bis ich auf Ihre E-Mail antworte.";
+const textRed = "Ich bin offline. Es kann mehrere Stunden dauern, bis ich auf Ihre E-Mail antworte.";
 
 async function setStatus(mode, text) {
   await fetch(API + "/set-status?t=" + Date.now(), {
