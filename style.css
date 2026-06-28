@@ -164,3 +164,6 @@ color: #000000;
     overflow-y: scroll;
     position: relative;
 }
+ol {
+    padding-left: 30px;
+}
